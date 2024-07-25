@@ -22,10 +22,10 @@ const Header = () => {
           Home
         </Navbar.Link>
         <Navbar.Link href="#">
-          About
+          Projects
         </Navbar.Link>
         <Navbar.Link href="#">
-          Services
+          Skills
         </Navbar.Link>
         <Navbar.Link href="#">
           Contact
