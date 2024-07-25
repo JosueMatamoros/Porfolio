@@ -46,7 +46,7 @@ export default function Projects() {
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="w-screen flex flex-col items-center justify-center">
       <div className="text-4xl mb-4">Featured Projects</div>
       <div className="flex justify-center w-full">
         {projects.map((project, index) => (
