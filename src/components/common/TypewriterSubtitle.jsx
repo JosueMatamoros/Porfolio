@@ -58,7 +58,7 @@ export default function TypewriterSubtitle() {
       className="
         text-2xl md:text-3xl font-semibold text-primary font-mono
         tracking-wide whitespace-nowrap inline-flex
-        leading-[1.6] pt-[2px]
+        leading-[1.6] pt-[2px] justify-center sm:justify-start
       "
     >
       {/* Text with conditional underline on the last ">" when in error mode */}

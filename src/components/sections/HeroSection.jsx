@@ -9,7 +9,6 @@ import TypewriterSubtitle from "../common/TypewriterSubtitle";
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [isTypingFinished, setIsTypingFinished] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -31,8 +30,6 @@ export default function HeroSection() {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { opacity: 1, scale: 1 },
   };
-
-  const subtitle = "< Desarrollador Junior />";
 
   return (
     <section
@@ -59,7 +56,7 @@ export default function HeroSection() {
 
           {/* Texto */}
           <div className="flex flex-col gap-6 text-center lg:text-left max-w-2xl">
-            {/* Título sin efectos raros */}
+            {/* Nombre */}
             <motion.h1
               variants={fadeInUp}
               initial="hidden"
@@ -69,7 +66,11 @@ export default function HeroSection() {
             >
               Josue Matamoros
             </motion.h1>
-            <TypewriterSubtitle/>
+
+            {/* Subtítulo */}
+            <TypewriterSubtitle />
+
+            {/* Descripción */}
             <motion.p
               variants={fadeInUp}
               initial="hidden"
@@ -77,9 +78,26 @@ export default function HeroSection() {
               transition={{ duration: 0.7, delay: 0.4 }}
               className="text-lg md:text-xl text-gray-400 leading-relaxed"
             >
-              Graduate from the Instituto Tecnológico de Costa Rica (TEC) with experience as an assistant in three academic projects over one year. Strong background in programming, systems architecture, and web development, with a focus on creating efficient and scalable solutions.
-
+              Graduate from the{" "}
+              <span className="font-bold bg-gradient-to-r from-white via-[#3B82F6] to-white bg-[length:200%_auto] bg-clip-text text-transparent animate-shine">
+                Instituto Tecnológico de Costa Rica (TEC)
+              </span>{" "}
+              with experience as an assistant in three academic projects over
+              one year. Strong background in{" "}
+              <span className="font-bold bg-gradient-to-r from-white via-[#3B82F6] to-white bg-[length:200%_auto] bg-clip-text text-transparent animate-shine">
+                programming
+              </span>
+              ,{" "}
+              <span className="font-bold bg-gradient-to-r from-white via-[#3B82F6] to-white bg-[length:200%_auto] bg-clip-text text-transparent animate-shine">
+                systems architecture
+              </span>{" "}
+              and{" "}
+              <span className="font-bold bg-gradient-to-r from-white via-[#3B82F6] to-white bg-[length:200%_auto] bg-clip-text text-transparent animate-shine">
+                web development
+              </span>
+              , with a focus on creating efficient and scalable solutions.
             </motion.p>
+
             {/* Redes sociales */}
             <motion.div
               variants={fadeInUp}
@@ -91,14 +109,16 @@ export default function HeroSection() {
               {socialLinks.map((social) => (
                 <motion.div
                   key={social.label}
-                  whileHover={{ scale: 1.2 }}
+                  whileHover={{ scale: 1.15 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <Button
                     variant="outline"
                     size="icon"
-                    className="rounded-full border-gray-500 text-gray-300 hover:bg-gray-200 hover:text-navy-dark transition-all bg-transparent"
+                    className="h-11 w-11 rounded-full border-gray-500 text-gray-300 
+                               bg-transparent transition-all 
+                               hover:bg-white hover:text-black hover:border-white"
                     asChild
                   >
                     <a
@@ -107,12 +127,13 @@ export default function HeroSection() {
                       rel="noopener noreferrer"
                       aria-label={social.label}
                     >
-                      <social.icon className="h-5 w-5" />
+                      <social.icon className="h-7 w-7" />
                     </a>
                   </Button>
                 </motion.div>
               ))}
             </motion.div>
+
             {/* Botones de acción */}
             <motion.div
               variants={fadeInUp}
@@ -123,16 +144,18 @@ export default function HeroSection() {
             >
               <Button
                 size="lg"
-                className="rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition-all hover:scale-105"
+                className="rounded-full bg-white text-black font-semibold transition-all 
+                           hover:scale-105 hover:bg-gray-200"
               >
-                Ver Proyectos
+                View Projects
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-full border-gray-500 text-gray-300 hover:bg-gray-200 hover:text-black transition-all hover:scale-105"
+                className="rounded-full border-gray-500 text-gray-300 transition-all 
+                           hover:scale-105 hover:bg-white hover:text-black hover:border-white"
               >
-                Descargar CV
+                Download CV
               </Button>
             </motion.div>
           </div>
@@ -143,7 +166,7 @@ export default function HeroSection() {
           initial={{ y: 0 }}
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="hidden md:flex fixed bottom-1.5 left-1/2 -translate-x-1/2"
         >
           <ArrowDown className="h-6 w-6 text-white/80" />
         </motion.div>

@@ -15,6 +15,15 @@ module.exports = {
         "navy-dark": "#000814",
         "navy-light": "#1E40AF",
       },
+      keyframes: {
+        shine: {
+          "0%": { backgroundPosition: "200% center" },
+          "100%": { backgroundPosition: "0 center" },
+        },
+      },
+      animation: {
+        shine: "shine 4s linear infinite",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

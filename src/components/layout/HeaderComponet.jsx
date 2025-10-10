@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import  Image  from "next/image";
+import Image from "next/image";
 
 export default function HeaderComponent() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -35,12 +35,14 @@ export default function HeaderComponent() {
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-         <a href="#hero" className="flex items-center gap-2">
+          <a href="#hero" className="flex items-center gap-2">
             <Image
-              src="/logo.png" // ← Asegúrate de poner tu logo aquí dentro de la carpeta /public
+              src="/logo.png"
               alt="Logo JM"
-              width={45}
-              height={45}
+              width={0}
+              height={0}
+              sizes="100vw"
+              className="w-[45px] h-auto"
               priority
             />
           </a>
@@ -66,7 +68,11 @@ export default function HeaderComponent() {
             className="md:hidden text-white hover:text-primary"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6" />
+            ) : (
+              <Menu className="h-6 w-6" />
+            )}
           </Button>
         </div>
 
