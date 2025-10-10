@@ -5,6 +5,7 @@ import { Github, Linkedin, Mail, Twitter, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { motion } from "framer-motion";
+import TypewriterSubtitle from "../common/TypewriterSubtitle";
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -68,21 +69,7 @@ export default function HeroSection() {
             >
               Josue Matamoros
             </motion.h1>
-            {/* Subtítulo con máquina de escribir precisa */}
-            <motion.p
-              className={`text-2xl md:text-3xl font-semibold text-primary font-mono tracking-wide overflow-hidden whitespace-nowrap ${
-                isTypingFinished ? "border-none" : "border-r-2 border-primary"
-              }`}
-              initial={{ width: 0 }}
-              animate={{ width: `${subtitle.length + 1}ch` }} // ← ancho exacto según el texto
-              transition={{
-                duration: 5, // más lento
-                ease: "easeOut",
-                onComplete: () => setIsTypingFinished(true), // quita el cursor al terminar
-              }}
-            >
-              {subtitle}
-            </motion.p>
+            <TypewriterSubtitle/>
             <motion.p
               variants={fadeInUp}
               initial="hidden"
@@ -90,11 +77,8 @@ export default function HeroSection() {
               transition={{ duration: 0.7, delay: 0.4 }}
               className="text-lg md:text-xl text-gray-400 leading-relaxed"
             >
-              Con 2 años de experiencia transformando ideas en soluciones
-              digitales innovadoras. Especializado en crear experiencias web
-              modernas y funcionales, combinando código limpio con diseño
-              intuitivo. Apasionado por el aprendizaje continuo y la resolución
-              creativa de problemas.
+              Graduate from the Instituto Tecnológico de Costa Rica (TEC) with experience as an assistant in three academic projects over one year. Strong background in programming, systems architecture, and web development, with a focus on creating efficient and scalable solutions.
+
             </motion.p>
             {/* Redes sociales */}
             <motion.div

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import  Image  from "next/image";
 
 export default function HeaderComponent() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,11 +35,14 @@ export default function HeaderComponent() {
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a
-            href="#hero"
-            className="text-2xl font-bold text-primary hover:text-secondary transition-colors"
-          >
-            {"<JM />"}
+         <a href="#hero" className="flex items-center gap-2">
+            <Image
+              src="/logo.png" // ← Asegúrate de poner tu logo aquí dentro de la carpeta /public
+              alt="Logo JM"
+              width={45}
+              height={45}
+              priority
+            />
           </a>
 
           {/* Navegación Desktop */}
