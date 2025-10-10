@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { Github, Linkedin, Mail, Twitter, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { motion } from "framer-motion";
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
+  const [isTypingFinished, setIsTypingFinished] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -19,93 +21,121 @@ export default function HeroSection() {
     { icon: Mail, href: "mailto:josue.matamoros@ejemplo.com", label: "Email" },
   ];
 
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
+  const scaleIn = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1 },
+  };
+
+  const subtitle = "< Desarrollador Junior />";
+
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center pt-20 bg-navy-dark text-white"
+      className="relative min-h-[90vh] flex items-center justify-center pt-10 bg-navy-dark text-white"
     >
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 max-w-6xl mx-auto">
           {/* Avatar */}
-          <div
-            className={`relative flex-shrink-0 ${
-              isVisible ? "animate-scale-in" : "opacity-0"
-            }`}
+          <motion.div
+            variants={scaleIn}
+            initial="hidden"
+            animate={isVisible ? "visible" : "hidden"}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="relative flex-shrink-0"
           >
-            <Avatar className="w-64 h-64 lg:w-80 lg:h-80 shadow-2xl ring-4 ring-primary/30 ring-offset-2 ring-offset-navy-dark">
-              <AvatarImage src="/developer-avatar.png" alt="Josue Matamoros" />
-              <AvatarFallback className="text-6xl bg-gray-800 text-gray-300">
+            <Avatar className="w-56 h-56 lg:w-72 lg:h-72 shadow-2xl ring-4 ring-primary/30 ring-offset-2 ring-offset-navy-dark">
+              <AvatarImage src="/profile.jpg" alt="Josue Matamoros" />
+              <AvatarFallback className="text-5xl bg-gray-800 text-gray-300">
                 JM
               </AvatarFallback>
             </Avatar>
-          </div>
+          </motion.div>
 
           {/* Texto */}
           <div className="flex flex-col gap-6 text-center lg:text-left max-w-2xl">
-            <div
-              className={`space-y-3 ${
-                isVisible ? "animate-fade-in-up" : "opacity-0"
-              }`}
-              style={{ animationDelay: "0.2s" }}
+            {/* Título sin efectos raros */}
+            <motion.h1
+              variants={fadeInUp}
+              initial="hidden"
+              animate={isVisible ? "visible" : "hidden"}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight font-[Poppins]"
             >
-              {/* Nombre estilizado */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight font-[Poppins]">
-                <span className="text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.1)]">
-                  Josue Matamoros
-                </span>
-              </h1>
-
-              {/* Subtítulo en azul */}
-              <p className="text-2xl md:text-3xl font-semibold text-primary font-mono tracking-wide">
-                {"<"} Desarrollador Junior {" />"}
-              </p>
-            </div>
-
-            {/* Descripción */}
-            <p
-              className={`text-lg md:text-xl text-gray-400 leading-relaxed ${
-                isVisible ? "animate-fade-in-up" : "opacity-0"
+              Josue Matamoros
+            </motion.h1>
+            {/* Subtítulo con máquina de escribir precisa */}
+            <motion.p
+              className={`text-2xl md:text-3xl font-semibold text-primary font-mono tracking-wide overflow-hidden whitespace-nowrap ${
+                isTypingFinished ? "border-none" : "border-r-2 border-primary"
               }`}
-              style={{ animationDelay: "0.4s" }}
+              initial={{ width: 0 }}
+              animate={{ width: `${subtitle.length + 1}ch` }} // ← ancho exacto según el texto
+              transition={{
+                duration: 5, // más lento
+                ease: "easeOut",
+                onComplete: () => setIsTypingFinished(true), // quita el cursor al terminar
+              }}
             >
-              Con 2 años de experiencia transformando ideas en soluciones digitales innovadoras. 
-              Especializado en crear experiencias web modernas y funcionales, combinando código limpio con diseño intuitivo. 
-              Apasionado por el aprendizaje continuo y la resolución creativa de problemas.
-            </p>
-
+              {subtitle}
+            </motion.p>
+            <motion.p
+              variants={fadeInUp}
+              initial="hidden"
+              animate={isVisible ? "visible" : "hidden"}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="text-lg md:text-xl text-gray-400 leading-relaxed"
+            >
+              Con 2 años de experiencia transformando ideas en soluciones
+              digitales innovadoras. Especializado en crear experiencias web
+              modernas y funcionales, combinando código limpio con diseño
+              intuitivo. Apasionado por el aprendizaje continuo y la resolución
+              creativa de problemas.
+            </motion.p>
             {/* Redes sociales */}
-            <div
-              className={`flex gap-4 justify-center lg:justify-start ${
-                isVisible ? "animate-fade-in-up" : "opacity-0"
-              }`}
-              style={{ animationDelay: "0.6s" }}
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              animate={isVisible ? "visible" : "hidden"}
+              transition={{ duration: 0.7, delay: 0.6 }}
+              className="flex gap-4 justify-center lg:justify-start"
             >
               {socialLinks.map((social) => (
-                <Button
+                <motion.div
                   key={social.label}
-                  variant="outline"
-                  size="icon"
-                  className="rounded-full border-gray-500 text-gray-300 hover:bg-gray-200 hover:text-navy-dark transition-all hover:scale-110 bg-transparent"
-                  asChild
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <a
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="rounded-full border-gray-500 text-gray-300 hover:bg-gray-200 hover:text-navy-dark transition-all bg-transparent"
+                    asChild
                   >
-                    <social.icon className="h-5 w-5" />
-                  </a>
-                </Button>
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.label}
+                    >
+                      <social.icon className="h-5 w-5" />
+                    </a>
+                  </Button>
+                </motion.div>
               ))}
-            </div>
-
+            </motion.div>
             {/* Botones de acción */}
-            <div
-              className={`flex flex-col sm:flex-row gap-4 justify-center lg:justify-start ${
-                isVisible ? "animate-fade-in-up" : "opacity-0"
-              }`}
-              style={{ animationDelay: "0.8s" }}
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              animate={isVisible ? "visible" : "hidden"}
+              transition={{ duration: 0.7, delay: 0.8 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
             >
               <Button
                 size="lg"
@@ -120,14 +150,19 @@ export default function HeroSection() {
               >
                 Descargar CV
               </Button>
-            </div>
+            </motion.div>
           </div>
         </div>
 
-        {/* Flecha de scroll */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        {/* Flecha scroll animada */}
+        <motion.div
+          initial={{ y: 0 }}
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
           <ArrowDown className="h-6 w-6 text-white/80" />
-        </div>
+        </motion.div>
       </div>
     </section>
   );
