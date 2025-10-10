@@ -3,7 +3,16 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    @apply font-body;
+  }
+
   body {
     @apply bg-navy-dark text-white;
   }
+
+  p, a, li, span, button, input, textarea {
+    @apply font-body;
+  }
 }
+

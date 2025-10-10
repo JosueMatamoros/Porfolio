@@ -37,7 +37,7 @@ export default function HeroSection() {
       className="relative min-h-[90vh] flex items-center justify-center pt-10 bg-navy-dark text-white"
     >
       <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12 max-w-6xl mx-auto">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-2 lg:gap-12 max-w-6xl mx-auto">
           {/* Avatar */}
           <motion.div
             variants={scaleIn}
@@ -55,14 +55,14 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Texto */}
-          <div className="flex flex-col gap-6 text-center lg:text-left max-w-2xl">
+          <div className="flex flex-col gap-5  text-center lg:text-left max-w-2xl">
             {/* Nombre */}
             <motion.h1
               variants={fadeInUp}
               initial="hidden"
               animate={isVisible ? "visible" : "hidden"}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight font-[Poppins]"
+              className="font-title -mb-4 text-5xl sm:text-7xl tracking-tight text-white drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]"
             >
               Josue Matamoros
             </motion.h1>

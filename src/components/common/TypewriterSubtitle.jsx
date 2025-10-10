@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function TypewriterSubtitle() {
-  const fullText = "< Junior Developer />";        // Final text that will be typed out
-  const wrongCharIndex = fullText.length - 2;      // Index before "/>"
-  const typingSpeed = 100;                         // Normal typing speed
-  const correctionSpeed = 120;                     // Speed for correction steps
+  const fullText = "< Junior Developer />"; // Final text that will be typed out
+  const wrongCharIndex = fullText.length - 2; // Index before "/>"
+  const typingSpeed = 100; // Normal typing speed
+  const correctionSpeed = 120; // Speed for correction steps
 
   const [displayedText, setDisplayedText] = useState("");
   const [cursorVisible, setCursorVisible] = useState(true);
@@ -22,22 +22,41 @@ export default function TypewriterSubtitle() {
     }
 
     // 2. Type the wrong character ">" (typo)
-    steps.push({ text: fullText.slice(0, wrongCharIndex) + ">", delay: typingSpeed });
+    steps.push({
+      text: fullText.slice(0, wrongCharIndex) + ">",
+      delay: typingSpeed,
+    });
 
     // 3. Wait a bit before showing the underline error
     steps.push({ action: "activateError", delay: 500 });
 
-    // 4. Pause to let the underline show 
+    // 4. Pause to let the underline show
     steps.push({ action: "pause", delay: 800 });
 
     // 5. Delete the wrong ">" and remove the underline
-    steps.push({ text: fullText.slice(0, wrongCharIndex), delay: correctionSpeed, clearError: true });
+    steps.push({
+      text: fullText.slice(0, wrongCharIndex),
+      delay: correctionSpeed,
+      clearError: true,
+    });
 
     // 6. Type "/" and then ">"
-    steps.push({ text: fullText.slice(0, wrongCharIndex) + "/", delay: correctionSpeed });
-    steps.push({ text: fullText, delay: correctionSpeed });
+    steps.push({
+      text:
+        fullText.slice(0, wrongCharIndex) +
+        '<span style="display:inline-block; transform: scale(0.6) translateY(2px); transform-origin:center;">/</span>',
+      delay: correctionSpeed,
+    });
 
-    // 7. Hide the cursor 
+    steps.push({
+      text:
+        fullText.slice(0, wrongCharIndex) +
+        '<span style="display:inline-block; transform: scale(0.6) translateY(2px); transform-origin:center;">/</span>' +
+        ">",
+      delay: correctionSpeed,
+    });
+
+    // 7. Hide the cursor
     steps.push({ action: "hideCursor", delay: 400 });
 
     // Execute all steps in sequence
@@ -76,7 +95,11 @@ export default function TypewriterSubtitle() {
       {/* Blinking cursor */}
       <motion.span
         animate={{ opacity: cursorVisible ? 1 : 0 }}
-        transition={{ duration: 0.4, repeat: cursorVisible ? Infinity : 0, repeatType: "reverse" }}
+        transition={{
+          duration: 0.4,
+          repeat: cursorVisible ? Infinity : 0,
+          repeatType: "reverse",
+        }}
         className="inline-block border-r-2 border-primary"
       />
     </div>

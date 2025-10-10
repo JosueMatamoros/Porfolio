@@ -24,6 +24,10 @@ module.exports = {
       animation: {
         shine: "shine 4s linear infinite",
       },
+      fontFamily: {
+        title: ["var(--font-title)", "serif"],    // Títulos (Shrikhand)
+        body: ["var(--font-body)", "sans-serif"], // Texto general (Poppins)
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
