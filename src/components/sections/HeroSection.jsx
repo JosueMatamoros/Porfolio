@@ -1,24 +1,33 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Github, Linkedin, Mail, Twitter, ArrowDown } from "lucide-react";
+import { Github, Linkedin, Mail, Copy, Instagram, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import TypewriterSubtitle from "../common/TypewriterSubtitle";
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const email = "1002matamoros@gmail.com";
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
+  // Si desaparece el hover, también limpiamos el copiado
+  useEffect(() => {
+    if (!hovered) {
+      setCopied(false);
+    }
+  }, [hovered]);
+
   const socialLinks = [
     { icon: Github, href: "https://github.com", label: "GitHub" },
     { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Mail, href: "mailto:josue.matamoros@ejemplo.com", label: "Email" },
+    { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
   ];
 
   const fadeInUp = {
@@ -31,20 +40,42 @@ export default function HeroSection() {
     visible: { opacity: 1, scale: 1 },
   };
 
+  const labelMotion = {
+    hidden: { opacity: 0, x: -20, scale: 0.9 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: { type: "spring", stiffness: 300, damping: 18 },
+    },
+    exit: {
+      opacity: 0,
+      x: -20,
+      scale: 0.9,
+      transition: { duration: 0.25, ease: "easeInOut" },
+    },
+  };
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <section
       id="hero"
       className="relative min-h-[90vh] flex items-center justify-center pt-10 bg-navy-dark text-white"
     >
       <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-2 lg:gap-12 max-w-6xl mx-auto">
+        <div className="flex flex-col lg:flex-row items-start justify-center gap-2 lg:gap-12 max-w-6xl mx-auto">
           {/* Avatar */}
           <motion.div
             variants={scaleIn}
             initial="hidden"
             animate={isVisible ? "visible" : "hidden"}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="relative flex-shrink-0"
+            className="relative flex flex-shrink-0 w-full lg:w-auto justify-center"
           >
             <Avatar className="w-56 h-56 lg:w-72 lg:h-72 shadow-2xl ring-4 ring-primary/30 ring-offset-2 ring-offset-navy-dark">
               <AvatarImage src="/profile.jpg" alt="Josue Matamoros" />
@@ -55,8 +86,7 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Texto */}
-          <div className="flex flex-col gap-5  text-center lg:text-left max-w-2xl">
-            {/* Nombre */}
+          <div className="flex flex-col gap-5 text-center lg:text-left max-w-2xl">
             <motion.h1
               variants={fadeInUp}
               initial="hidden"
@@ -67,10 +97,8 @@ export default function HeroSection() {
               Josue Matamoros
             </motion.h1>
 
-            {/* Subtítulo */}
             <TypewriterSubtitle />
 
-            {/* Descripción */}
             <motion.p
               variants={fadeInUp}
               initial="hidden"
@@ -98,13 +126,13 @@ export default function HeroSection() {
               , with a focus on creating efficient and scalable solutions.
             </motion.p>
 
-            {/* Redes sociales */}
+            {/* Redes sociales + label dinámico */}
             <motion.div
               variants={fadeInUp}
               initial="hidden"
               animate={isVisible ? "visible" : "hidden"}
               transition={{ duration: 0.7, delay: 0.6 }}
-              className="flex gap-4 justify-center lg:justify-start"
+              className="flex gap-4 justify-center lg:justify-start flex-wrap items-center relative"
             >
               {socialLinks.map((social) => (
                 <motion.div
@@ -132,6 +160,59 @@ export default function HeroSection() {
                   </Button>
                 </motion.div>
               ))}
+
+              {/* Ícono Mail con animación */}
+              <div
+                className="relative flex items-center"
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+              >
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="h-11 w-11 rounded-full border-gray-500 text-gray-300 
+                             bg-transparent transition-all 
+                             hover:bg-white hover:text-black hover:border-white"
+                >
+                  <Mail className="h-7 w-7" />
+                </Button>
+
+                <AnimatePresence>
+                  {hovered && (
+                    <motion.div
+                      variants={labelMotion}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      className="ml-2 flex items-center border border-gray-500 rounded-full px-4 py-2 text-gray-300 
+                                 bg-transparent hover:bg-white hover:text-black transition-all whitespace-nowrap"
+                    >
+                      <span className="text-sm sm:text-base">{email}</span>
+                      <button
+                        onClick={copyToClipboard}
+                        className="ml-2 p-1 rounded-full hover:bg-gray-200 transition"
+                        title="Copiar correo"
+                      >
+                        <Copy size={16} />
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <AnimatePresence>
+                  {copied && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute top-[-2.5rem] left-1/2 -translate-x-1/2 border border-gray-500 text-gray-300 text-xs px-3 py-1 rounded-full backdrop-blur-sm"
+                    >
+                      Copiado
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </motion.div>
 
             {/* Botones de acción */}
@@ -140,7 +221,7 @@ export default function HeroSection() {
               initial="hidden"
               animate={isVisible ? "visible" : "hidden"}
               transition={{ duration: 0.7, delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-2"
             >
               <Button
                 size="lg"
