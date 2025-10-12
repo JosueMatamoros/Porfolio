@@ -115,7 +115,7 @@ export function ProjectCard({ title, description, technologies, mockups, liveUrl
               {liveUrl && (
                 <Button
                   asChild
-                  className="bg-primary/90 hover:bg-primary text-white shadow-sm hover:shadow transition-all"
+                  className="bg-primary/90 hover:bg-primary hover:scale-105 text-white shadow-sm hover:shadow transition-all duration-200"
                 >
                   <a
                     href={liveUrl}
@@ -129,12 +129,12 @@ export function ProjectCard({ title, description, technologies, mockups, liveUrl
                 </Button>
               )}
               {githubUrl && (
-                <Button asChild variant="outline" className="border-white/15 text-white/80 hover:bg-white/10">
+                <Button asChild variant="outline" className="border-white/15 hover:text-black hover:bg-white  hover:scale-105 transition-all duration-200">
                   <a
                     href={githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 "
                   >
                     <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path

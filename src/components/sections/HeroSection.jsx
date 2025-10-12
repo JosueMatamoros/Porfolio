@@ -11,12 +11,20 @@ export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const [hovered, setHovered] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [showArrow, setShowArrow] = useState(true);
   const email = "1002matamoros@gmail.com";
 
   useEffect(() => {
     setIsVisible(true);
-  }, []);
 
+    const handleScroll = () => {
+      setShowArrow(window.scrollY < 50); 
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  
   // Si desaparece el hover, también limpiamos el copiado
   useEffect(() => {
     if (!hovered) {
@@ -243,14 +251,19 @@ export default function HeroSection() {
         </div>
 
         {/* Flecha scroll animada */}
-        <motion.div
-          initial={{ y: 0 }}
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-          className="hidden md:flex fixed bottom-1.5 left-1/2 -translate-x-1/2"
-        >
-          <ArrowDown className="h-6 w-6 text-white/80" />
-        </motion.div>
+        <AnimatePresence>
+          {showArrow && (
+            <motion.div
+              initial={{ y: 0, opacity: 0 }}
+              animate={{ y: [0, 10, 0], opacity: 1 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ repeat: Infinity, duration: 1.5, opacity: { duration: 0.3 } }}
+              className="hidden md:flex fixed bottom-1.5 left-1/2 -translate-x-1/2"
+            >
+              <ArrowDown className="h-6 w-6 text-white/80" />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );

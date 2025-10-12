@@ -4,7 +4,8 @@ import { ProjectCard } from "@/components/common/ProjectCard"
 
 export default function ProjectsSection() {
   return (
-    <section>
+    <section className="mb-6">
+      <h1 className="text-4xl text-center font-title my-4 ">Featured Projects</h1>
       <div className="container mx-auto px-4 space-y-10">
         <ProjectCard
           title="Revista Digital de Matemática"
