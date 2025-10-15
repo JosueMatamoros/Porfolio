@@ -8,7 +8,7 @@ export default function ProjectsSection() {
       <h1 className="text-4xl text-center font-title my-4 ">Featured Projects</h1>
       <div className="container mx-auto px-4 space-y-10">
         <ProjectCard
-          title="Revista Digital de Matemática"
+          title="Digital Mathematics Journal"
           description="A modern educational magazine created as an innovative proposal for Instituto Tecnológico de Costa Rica, designed to replace their outdated site with a more dynamic, accessible, and responsive digital platform."
           technologies={["Next.js", "React", "Tailwind CSS", "JavaScript"]}
           mockups={{

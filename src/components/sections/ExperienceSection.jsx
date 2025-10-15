@@ -20,31 +20,31 @@ const experiences = [
   },
   {
     id: "2",
-    title: "Marcación XML para Scielo",
+    title: "Mathematical Article Markup for SciELO",
     description:
-      "Proceso de marcación y conversión de artículos de la Revista Matemática para indexación en Scielo.",
+      "Conversion and markup process for articles from the Revista Matemática Educación e Internet at TEC. Transformation of articles from HTML to XML following Scielo’s academic indexing standards, covering multiple volumes starting in 2024.",
     problem:
-      "La revista no estaba indexada debido a fallos previos en el proceso de marcación.",
+      "The Revista Matemática was not indexed in Scielo because the previous markup process had failed, severely limiting its international academic visibility.",
     solution:
-      "Implementación de un proceso detallado que cumple los requisitos de Scielo.",
-    startDate: "Abril 2024",
-    technologies: ["XML", "JATS", "Python", "HTML", "Scielo Standards"],
-    githubUrl: "https://github.com/username/scielo-markup",
+      "Implementation of a detailed and standardized markup workflow that fully meets Scielo’s requirements, enabling the successful indexing of the journal in this major academic database.",
+    startDate: "August 2024",
+    technologies: ["HTML","XML","SciELO PC Programs","XML Package Maker (XPM)", "SciELO SPS Validation","Marcalyc"],
+    githubUrl: "https://github.com/JosueMatamoros/SciELO-XML-Transcriptor",
     organization: "Tecnológico de Costa Rica - Cátedra de Matemática",
     status: "active",
   },
   {
     id: "3",
-    title: "Revista Matemática - Sitio Web Moderno",
+    title: "Digital Mathematics Journal",
     description:
-      "Renovación completa del sitio web de la revista con tecnologías modernas y SEO académico.",
+      "Complete redesign of the website for *Revista Matemática Educación e Internet* using modern web technologies. The new site features an elegant and efficient interface, fully optimized for academic SEO and indexed by Google Scholar to enhance the journal’s international visibility.",
     problem:
-      "El sitio anterior no era reconocido por Google Scholar, limitando su visibilidad.",
+      "The previous site was built with plain JavaScript and was not recognized by Google Scholar, severely limiting the academic reach of the published articles.",
     solution:
-      "Migración a tecnologías modernas y optimización para indexación académica.",
-    startDate: "Julio 2024",
-    technologies: ["Next.js", "TypeScript", "React", "Tailwind CSS", "SEO"],
-    githubUrl: "https://github.com/username/revista-matematica",
+      "Migration to a modern tech stack ensuring proper indexing by Google Scholar and delivering a fast, elegant, and academically SEO-optimized user experience.",
+    startDate: "September 2024",
+    technologies: ["Next.js", "React", "Tailwind CSS", "JavaScript", "shadcn/ui"],
+    githubUrl: "https://github.com/JosueMatamoros/RevistaMatematicas",
     organization: "Tecnológico de Costa Rica - Cátedra de Matemática",
     status: "active",
   },
@@ -62,16 +62,6 @@ export default function ExperienceSection() {
           {experiences.map((exp) => (
             <ExperienceCard key={exp.id} project={exp} />
           ))}
-        </div>
-
-        {/* Footer Count */}
-        <div className="mt-16 flex items-center justify-center">
-          <div className="flex items-center gap-3 rounded-full border border-white/10 bg-card/90 px-6 py-3 shadow-sm backdrop-blur-sm">
-            <div className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
-            <span className="font-mono text-sm text-white/70">
-              {activeCount} experiencias activas · Tecnológico de Costa Rica
-            </span>
-          </div>
         </div>
       </div>
     </section>
