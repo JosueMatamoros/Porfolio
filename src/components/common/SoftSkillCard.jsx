@@ -16,7 +16,7 @@ export default function SoftSkillCard({ skill, expandedSkill, setExpandedSkill }
       <div
         className={`
           relative p-6 rounded-2xl  border-2 transition-all duration-500 ease-in-out cursor-pointer
-          min-h-[230px]
+          min-h-[235px]
           ${isExpanded
             ? "bg-card border-primary shadow-2xl scale-105"
             : "bg-card/50 border-white/10  hover:border-primary/50 hover:shadow-lg"
