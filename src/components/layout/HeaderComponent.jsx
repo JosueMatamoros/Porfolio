@@ -16,12 +16,12 @@ export default function HeaderComponent() {
   }, []);
 
   const navItems = [
-    { name: "Inicio", href: "#hero" },
-    { name: "Sobre Mí", href: "#about" },
-    { name: "Experiencia", href: "#experience" },
-    { name: "Proyectos", href: "#projects" },
-    { name: "Skills", href: "#skills" },
-    { name: "Contacto", href: "#contact" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Experience", href: "/experience" },
+    { name: "Projects", href: "/projects" },
+    { name: "Skills", href: "/skills" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -38,7 +38,7 @@ export default function HeaderComponent() {
           <a href="#hero" className="flex items-center gap-2">
             <Image
               src="/logo.png"
-              alt="Logo JM"
+              alt="JM Logo"
               width={0}
               height={0}
               sizes="100vw"
@@ -47,7 +47,7 @@ export default function HeaderComponent() {
             />
           </a>
 
-          {/* Navegación Desktop */}
+          {/* Desktop navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <a
@@ -61,7 +61,7 @@ export default function HeaderComponent() {
             ))}
           </div>
 
-          {/* Botón móvil */}
+          {/* Mobile button */}
           <Button
             variant="ghost"
             size="icon"
@@ -76,7 +76,7 @@ export default function HeaderComponent() {
           </Button>
         </div>
 
-        {/* Navegación móvil */}
+        {/* Mobile navigation */}
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 pb-4 animate-fade-in-up">
             <div className="flex flex-col gap-4">

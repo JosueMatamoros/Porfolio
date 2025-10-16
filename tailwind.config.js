@@ -20,9 +20,14 @@ module.exports = {
           "0%": { backgroundPosition: "200% center" },
           "100%": { backgroundPosition: "0 center" },
         },
+        floaty: {
+          "0%, 100%": { transform: "translateX(0)" },
+          "50%": { transform: "translateX(-4px)" },
+        },
       },
       animation: {
         shine: "shine 4s linear infinite",
+        floaty: "floaty 0.6s ease-in-out infinite",
       },
       fontFamily: {
         title: ["var(--font-title)", "serif"],    // Títulos (Shrikhand)

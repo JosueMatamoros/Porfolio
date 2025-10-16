@@ -1,11 +1,13 @@
-"use client"
+"use client";
 
-import { ProjectCard } from "@/components/common/ProjectCard"
+import { ProjectCard } from "@/components/common/ProjectCard";
 
 export default function ProjectsSection() {
   return (
     <section className="mb-16">
-      <h1 className="text-4xl text-center font-title my-4 ">Featured Projects</h1>
+      <h2 className="mb-4 text-center font-title text-4xl italic text-white md:text-5xl lg:text-6xl">
+        Featured Projects
+      </h2>
       <div className="container mx-auto px-4 space-y-10">
         <ProjectCard
           title="Digital Mathematics Journal"
@@ -28,5 +30,5 @@ export default function ProjectsSection() {
         />
       </div>
     </section>
-  )
+  );
 }

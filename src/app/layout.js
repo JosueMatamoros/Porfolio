@@ -1,6 +1,6 @@
 import "./globals.css";
 import { titleFont, bodyFont } from "./fonts";
-import HeaderComponent from "@/components/layout/HeaderComponet";
+import HeaderComponent from "@/components/layout/HeaderComponent";
 
 export const metadata = {
   title: "Josue Matamoros | Portfolio",

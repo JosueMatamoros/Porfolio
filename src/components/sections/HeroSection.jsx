@@ -72,7 +72,6 @@ export default function HeroSection() {
 
   return (
     <section
-      id="hero"
       className="relative min-h-[90vh] flex items-center justify-center pt-10 bg-navy-dark text-white"
     >
       <div className="container mx-auto px-4">
