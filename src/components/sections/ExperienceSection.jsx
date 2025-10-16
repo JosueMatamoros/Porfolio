@@ -54,8 +54,8 @@ export default function ExperienceSection() {
   const activeCount = experiences.filter((e) => e.status === "active").length
 
   return (
-    <section>
-      <div className="mb-6">
+    <section className="mb-16 ">
+      <div >
         <h1 className="text-4xl text-center font-title my-4 ">Experience</h1>
         {/* Cards */}
         <div className="space-y-12">
