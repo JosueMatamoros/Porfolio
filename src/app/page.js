@@ -1,7 +1,7 @@
 import HeaderComponent from "@/components/layout/HeaderComponent";
-import HeroSection from "@/components/sections/HeroSection";
+import HeroSection from "@/components/sections/home/HeroSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
-import ExperiencePreviewSection from "@/components/sections/ExperiencePreviewSection";
+import ExperiencePreviewSection from "@/components/sections/home/ExperiencePreviewSection";
 import SoftSkillsSection from "@/components/sections/SoftSkillsSection";
 
 export default function Home() {

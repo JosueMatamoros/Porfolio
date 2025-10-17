@@ -5,7 +5,7 @@ import { Github, Linkedin, Mail, Copy, Instagram, ArrowDown } from "lucide-react
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { motion, AnimatePresence } from "framer-motion";
-import TypewriterSubtitle from "../common/TypewriterSubtitle";
+import TypewriterSubtitle from "../../common/TypewriterSubtitle";
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
