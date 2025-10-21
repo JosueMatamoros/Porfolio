@@ -2,40 +2,62 @@
 
 import TechSkillsCard from "@/components/common/TechSkillsCard";
 import {
-  SiPython, SiJavascript, SiTypescript, SiGo, SiRust, SiC, SiCplusplus,
-  SiHtml5, SiCss3, SiTailwindcss, SiReact, SiVuedotjs, SiAngular,
-  SiVite, SiNextdotjs, SiR, SiOverleaf, SiMarkdown, SiMysql,
-  SiPostgresql, SiGit, SiGithub, SiNodedotjs, SiUnity, SiWarp,
-  SiIntellijidea, SiDatagrip
+  SiPython,
+  SiJavascript,
+  SiTypescript,
+  SiGo,
+  SiRust,
+  SiC,
+  SiCplusplus,
+  SiHtml5,
+  SiCss3,
+  SiTailwindcss,
+  SiReact,
+  SiVuedotjs,
+  SiAngular,
+  SiVite,
+  SiNextdotjs,
+  SiR,
+  SiOverleaf,
+  SiMarkdown,
+  SiMysql,
+  SiPostgresql,
+  SiGit,
+  SiGithub,
+  SiNodedotjs,
+  SiUnity,
+  SiWarp,
+  SiIntellijidea,
+  SiDatagrip,
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa6";
 import { VscVscode } from "react-icons/vsc";
 
 const techGroups = [
-  {
+    {
     title: "UI & Frameworks",
     subcategories: [
       {
         subtitle: "Styling",
         techs: [
-          { name: "HTML", icon: SiHtml5 },
-          { name: "CSS", icon: SiCss3 },
-          { name: "Tailwind", icon: SiTailwindcss },
+          { name: "HTML", icon: SiHtml5, slug: "html" },
+          { name: "CSS", icon: SiCss3, slug: "css" },
+          { name: "Tailwind", icon: SiTailwindcss, slug: "tailwind" },
         ],
       },
       {
         subtitle: "Frameworks",
         techs: [
-          { name: "React", icon: SiReact },
-          { name: "Vue", icon: SiVuedotjs },
-          { name: "Angular", icon: SiAngular },
+          { name: "React", icon: SiReact, slug: "react" },
+          { name: "Vue", icon: SiVuedotjs, slug: "vue" },
+          { name: "Angular", icon: SiAngular, slug: "angular" },
         ],
       },
       {
         subtitle: "Build Tools",
         techs: [
-          { name: "Vite", icon: SiVite },
-          { name: "Next.js", icon: SiNextdotjs },
+          { name: "Vite", icon: SiVite, slug: "vite" },
+          { name: "Next.js", icon: SiNextdotjs, slug: "nextjs" },
         ],
       },
     ],
@@ -46,19 +68,19 @@ const techGroups = [
       {
         subtitle: "Proficient",
         techs: [
-          { name: "Python", icon: SiPython },
-          { name: "Java", icon: FaJava },
-          { name: "JavaScript", icon: SiJavascript },
-          { name: "TypeScript", icon: SiTypescript },
+          { name: "Python", icon: SiPython, slug: "python" },
+          { name: "Java", icon: FaJava, slug: "java" },
+          { name: "JavaScript", icon: SiJavascript, slug: "js" },
+          { name: "TypeScript", icon: SiTypescript, slug: "ts" },
         ],
       },
       {
         subtitle: "Experienced",
         techs: [
-          { name: "Go", icon: SiGo },
-          { name: "Rust", icon: SiRust },
-          { name: "C", icon: SiC },
-          { name: "C++", icon: SiCplusplus },
+          { name: "Go", icon: SiGo, slug: "go" },
+          { name: "Rust", icon: SiRust, slug: "rust" },
+          { name: "C", icon: SiC, slug: "c" },
+          { name: "C++", icon: SiCplusplus, slug: "cpp" },
         ],
       },
     ],
@@ -69,19 +91,19 @@ const techGroups = [
       {
         subtitle: "Terminal & Version Control",
         techs: [
-          { name: "Git", icon: SiGit },
-          { name: "GitHub", icon: SiGithub },
-          { name: "Node.js", icon: SiNodedotjs },
-          { name: "Warp", icon: SiWarp },
+          { name: "Git", icon: SiGit, slug: "git" },
+          { name: "GitHub", icon: SiGithub, slug: "github" },
+          { name: "Node.js", icon: SiNodedotjs, slug: "nodejs" },
+          { name: "Warp", icon: SiWarp, slug: "terminal", customIcon: "/icons/warpIcon.webp" },
         ],
       },
       {
         subtitle: "IDEs & Tools",
         techs: [
-          { name: "VS Code", icon: VscVscode },
-          { name: "IntelliJ", icon: SiIntellijidea },
-          { name: "DataGrip", icon: SiDatagrip },
-          { name: "Unity", icon: SiUnity },
+          { name: "VS Code", icon: VscVscode, slug: "vscode" },
+          { name: "IntelliJ", icon: SiIntellijidea, slug: "idea" },
+         { name: "DataGrip", icon: SiDatagrip, slug: "datagrip", customIcon: "/icons/datagripIcon.webp" },
+          { name: "Unity", icon: SiUnity, slug: "unity" },
         ],
       },
     ],
@@ -92,16 +114,16 @@ const techGroups = [
       {
         subtitle: "Documentation",
         techs: [
-          { name: "R", icon: SiR },
-          { name: "LaTeX", icon: SiOverleaf },
-          { name: "Markdown", icon: SiMarkdown },
+          { name: "R", icon: SiR, slug: "r" },
+          { name: "LaTeX", icon: SiOverleaf, slug: "latex" },
+          { name: "Markdown", icon: SiMarkdown, slug: "markdown" },
         ],
       },
       {
         subtitle: "Databases",
         techs: [
-          { name: "MySQL", icon: SiMysql },
-          { name: "PostgreSQL", icon: SiPostgresql },
+          { name: "MySQL", icon: SiMysql, slug: "mysql" },
+          { name: "PostgreSQL", icon: SiPostgresql, slug: "postgres" },
         ],
       },
     ],
@@ -117,9 +139,14 @@ export default function TechSkills() {
         </h2>
         <p className="mx-auto max-w-3xl text-lg leading-relaxed text-white/70 md:text-xl">
           These are some of the{" "}
-          <span className="font-semibold text-secondary">technologies and tools</span>{" "}
+          <span className="font-semibold text-secondary">
+            technologies and tools
+          </span>{" "}
           I’ve worked with across{" "}
-          <span className="font-semibold text-secondary">different projects and contexts</span>.
+          <span className="font-semibold text-secondary">
+            different projects and contexts
+          </span>
+          .
         </p>
       </div>
       <TechSkillsCard techGroups={techGroups} />
