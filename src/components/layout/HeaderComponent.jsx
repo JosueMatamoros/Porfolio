@@ -37,13 +37,14 @@ export default function HeaderComponent() {
           {/* Logo */}
           <a href="#hero" className="flex items-center gap-2">
             <Image
-              src="/logo.png"
+              src="/logo.webp"
               alt="JM Logo"
               width={0}
               height={0}
               sizes="100vw"
               className="w-[45px] h-auto"
-              priority
+              loading="lazy"
+              decoding="async"
             />
           </a>
 

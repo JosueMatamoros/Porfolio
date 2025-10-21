@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Github, Linkedin, Mail, Copy, Instagram, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, LazyMotion, domAnimation } from "framer-motion";
 import TypewriterSubtitle from "../../common/TypewriterSubtitle";
 
 export default function HeroSection() {
@@ -14,38 +14,37 @@ export default function HeroSection() {
   const [showArrow, setShowArrow] = useState(true);
   const email = "1002matamoros@gmail.com";
 
+  // Precarga de imagen crítica antes de mostrar animaciones
   useEffect(() => {
-    setIsVisible(true);
+    const img = new Image();
+    img.src = "/profile.webp";
+    img.onload = () => setIsVisible(true);
+  }, []);
 
-    const handleScroll = () => {
-      setShowArrow(window.scrollY < 50); 
-    };
-
-    window.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    const handleScroll = () => setShowArrow(window.scrollY < 50);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
-  // Si desaparece el hover, también limpiamos el copiado
+
   useEffect(() => {
-    if (!hovered) {
-      setCopied(false);
-    }
+    if (!hovered) setCopied(false);
   }, [hovered]);
 
-  const socialLinks = [
+  const socialLinks = useMemo(() => [
     { icon: Github, href: "https://github.com", label: "GitHub" },
     { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
     { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-  ];
+  ], []);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
   const scaleIn = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } },
   };
 
   const labelMotion = {
@@ -72,25 +71,32 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative min-h-[90vh] flex items-center justify-center pt-10 bg-navy-dark text-white"
+      className="relative min-h-[90vh] flex items-center justify-center pt-10 bg-navy-dark text-white will-change-transform"
     >
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-start justify-center gap-2 lg:gap-12 max-w-6xl mx-auto">
           {/* Avatar */}
-          <motion.div
-            variants={scaleIn}
-            initial="hidden"
-            animate={isVisible ? "visible" : "hidden"}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="relative flex flex-shrink-0 w-full lg:w-auto justify-center"
-          >
-            <Avatar className="w-56 h-56 lg:w-72 lg:h-72 shadow-2xl ring-4 ring-primary/30 ring-offset-2 ring-offset-navy-dark">
-              <AvatarImage src="/profile.jpg" alt="Josue Matamoros" />
-              <AvatarFallback className="text-5xl bg-gray-800 text-gray-300">
-                JM
-              </AvatarFallback>
-            </Avatar>
-          </motion.div>
+          <LazyMotion features={domAnimation}>
+            <motion.div
+              variants={scaleIn}
+              initial="hidden"
+              animate={isVisible ? "visible" : "hidden"}
+              className="relative flex flex-shrink-0 w-full lg:w-auto justify-center"
+            >
+              <Avatar className="w-56 h-56 lg:w-72 lg:h-72 shadow-2xl ring-4 ring-primary/30 ring-offset-2 ring-offset-navy-dark">
+                <AvatarImage
+                  src="/profile.webp"
+                  alt="Josue Matamoros"
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
+                />
+                <AvatarFallback className="text-5xl bg-gray-800 text-gray-300">
+                  JM
+                </AvatarFallback>
+              </Avatar>
+            </motion.div>
+          </LazyMotion>
 
           {/* Texto */}
           <div className="flex flex-col gap-5 text-center lg:text-left max-w-2xl">
@@ -98,20 +104,22 @@ export default function HeroSection() {
               variants={fadeInUp}
               initial="hidden"
               animate={isVisible ? "visible" : "hidden"}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="font-title -mb-4 text-5xl sm:text-7xl tracking-tight text-white drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+              className="font-title -mb-4 text-5xl sm:text-7xl tracking-tight text-white drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] will-change-transform"
             >
               Josue Matamoros
             </motion.h1>
 
-            <TypewriterSubtitle />
+            {/* Typewriter */}
+            <AnimatePresence>
+              {isVisible && <TypewriterSubtitle />}
+            </AnimatePresence>
 
             <motion.p
               variants={fadeInUp}
               initial="hidden"
               animate={isVisible ? "visible" : "hidden"}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="text-lg md:text-xl text-gray-400 leading-relaxed"
+              transition={{ delay: 0.2 }}
+              className="text-lg md:text-xl text-gray-400 leading-relaxed max-w-2xl will-change-transform"
             >
               Graduate from the{" "}
               <span className="font-bold bg-gradient-to-r from-white via-[#3B82F6] to-white bg-[length:200%_auto] bg-clip-text text-transparent animate-shine">
@@ -133,13 +141,13 @@ export default function HeroSection() {
               , with a focus on creating efficient and scalable solutions.
             </motion.p>
 
-            {/* Redes sociales + label dinámico */}
+            {/* Redes sociales */}
             <motion.div
               variants={fadeInUp}
               initial="hidden"
               animate={isVisible ? "visible" : "hidden"}
-              transition={{ duration: 0.7, delay: 0.6 }}
-              className="flex gap-4 justify-center lg:justify-start flex-wrap items-center relative"
+              transition={{ delay: 0.4 }}
+              className="flex gap-4 justify-center lg:justify-start flex-wrap items-center relative will-change-transform"
             >
               {socialLinks.map((social) => (
                 <motion.div
@@ -151,8 +159,8 @@ export default function HeroSection() {
                   <Button
                     variant="outline"
                     size="icon"
-                    className="h-11 w-11 rounded-full border-gray-500 text-gray-300 
-                               bg-transparent transition-all 
+                    className="h-11 w-11 rounded-full border-gray-500 text-gray-300
+                               bg-transparent transition-all
                                hover:bg-white hover:text-black hover:border-white"
                     asChild
                   >
@@ -168,7 +176,7 @@ export default function HeroSection() {
                 </motion.div>
               ))}
 
-              {/* Ícono Mail con animación */}
+              {/* Ícono Mail */}
               <div
                 className="relative flex items-center"
                 onMouseEnter={() => setHovered(true)}
@@ -177,8 +185,8 @@ export default function HeroSection() {
                 <Button
                   variant="outline"
                   size="icon"
-                  className="h-11 w-11 rounded-full border-gray-500 text-gray-300 
-                             bg-transparent transition-all 
+                  className="h-11 w-11 rounded-full border-gray-500 text-gray-300
+                             bg-transparent transition-all
                              hover:bg-white hover:text-black hover:border-white"
                 >
                   <Mail className="h-7 w-7" />
@@ -191,7 +199,7 @@ export default function HeroSection() {
                       initial="hidden"
                       animate="visible"
                       exit="exit"
-                      className="ml-2 flex items-center border border-gray-500 rounded-full px-4 py-2 text-gray-300 
+                      className="ml-2 flex items-center border border-gray-500 rounded-full px-4 py-2 text-gray-300
                                  bg-transparent hover:bg-white hover:text-black transition-all whitespace-nowrap"
                     >
                       <span className="text-sm sm:text-base">{email}</span>
@@ -222,17 +230,17 @@ export default function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Botones de acción */}
+            {/* Botones */}
             <motion.div
               variants={fadeInUp}
               initial="hidden"
               animate={isVisible ? "visible" : "hidden"}
-              transition={{ duration: 0.7, delay: 0.8 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-2"
+              transition={{ delay: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mt-2 will-change-transform"
             >
               <Button
                 size="lg"
-                className="rounded-full bg-white text-black font-semibold transition-all 
+                className="rounded-full bg-white text-black font-semibold transition-all
                            hover:scale-105 hover:bg-gray-200"
               >
                 View Projects
@@ -240,7 +248,7 @@ export default function HeroSection() {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-full border-gray-500 text-gray-300 transition-all 
+                className="rounded-full border-gray-500 text-gray-300 transition-all
                            hover:scale-105 hover:bg-white hover:text-black hover:border-white"
               >
                 Download CV
@@ -256,8 +264,8 @@ export default function HeroSection() {
               initial={{ y: 0, opacity: 0 }}
               animate={{ y: [0, 10, 0], opacity: 1 }}
               exit={{ opacity: 0, y: 20 }}
-              transition={{ repeat: Infinity, duration: 1.5, opacity: { duration: 0.3 } }}
-              className="hidden md:flex fixed bottom-1.5 left-1/2 -translate-x-1/2"
+              transition={{ repeat: Infinity, duration: 1.5 }}
+              className="hidden md:flex fixed bottom-1.5 left-1/2 -translate-x-1/2 will-change-transform"
             >
               <ArrowDown className="h-6 w-6 text-white/80" />
             </motion.div>
