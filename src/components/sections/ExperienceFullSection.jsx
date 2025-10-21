@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import ExperienceCard from "@/components/common/ExperienceCard"
+import ExperienceCard from "@/components/common/ExperienceCard";
 
 const experiences = [
   {
@@ -13,7 +13,16 @@ const experiences = [
     solution:
       "Development of a tool that accelerates the research process and turns it into a practical, industry ready solution, enabling efficient comparison between multiple AI models.",
     startDate: "August 2024",
-    technologies: ["JavaScript", "TypeScript", "VS Code API", "OpenAI", "Anthropic", "OpenRouters", "Unity", "C#"],
+    technologies: [
+      "JavaScript",
+      "TypeScript",
+      "VS Code API",
+      "OpenAI",
+      "Anthropic",
+      "OpenRouters",
+      "Unity",
+      "C#",
+    ],
     githubUrl: "https://github.com/JosueMatamoros/UnityTestAI",
     organization: "Tecnológico de Costa Rica",
     status: "active",
@@ -28,7 +37,14 @@ const experiences = [
     solution:
       "Implementation of a detailed and standardized markup workflow that fully meets Scielo’s requirements, enabling the successful indexing of the journal in this major academic database.",
     startDate: "August 2024",
-    technologies: ["HTML","XML","SciELO PC Programs","XML Package Maker (XPM)", "SciELO SPS Validation","Marcalyc"],
+    technologies: [
+      "HTML",
+      "XML",
+      "SciELO PC Programs",
+      "XML Package Maker (XPM)",
+      "SciELO SPS Validation",
+      "Marcalyc",
+    ],
     githubUrl: "https://github.com/JosueMatamoros/SciELO-XML-Transcriptor",
     organization: "Tecnológico de Costa Rica - Cátedra de Matemática",
     status: "active",
@@ -43,20 +59,20 @@ const experiences = [
     solution:
       "Migration to a modern tech stack ensuring proper indexing by Google Scholar and delivering a fast, elegant, and academically SEO-optimized user experience.",
     startDate: "September 2024",
-    technologies: ["Next.js", "React", "Tailwind CSS", "JavaScript", "shadcn/ui"],
+    technologies: ["Next.js", "React", "Tailwind CSS", "JavaScript"],
     githubUrl: "https://github.com/JosueMatamoros/RevistaMatematicas",
     organization: "Tecnológico de Costa Rica - Cátedra de Matemática",
     status: "active",
   },
-]
+];
 
 export default function ExperienceFullSection() {
-  const activeCount = experiences.filter((e) => e.status === "active").length
+  const activeCount = experiences.filter((e) => e.status === "active").length;
 
   return (
     <section className="mb-16 ">
-      <div >
-         <div className="mb-12 text-center">
+      <div>
+        <div className="mb-12 text-center">
           <h2 className="mb-4 font-title text-4xl italic text-white md:text-5xl lg:text-6xl">
             Experience
           </h2>
@@ -82,5 +98,5 @@ export default function ExperienceFullSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
