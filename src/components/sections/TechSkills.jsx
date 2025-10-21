@@ -139,7 +139,7 @@ export default function TechSkills() {
   const [activeTab, setActiveTab] = useState(techGroups[0].title);
 
   return (
-    <section className="px-6 max-w-7xl mx-auto">
+    <section className="px-6 max-w-7xl mx-auto mb-16">
       <div className="mb-12 text-center">
         <h2 className="mb-4 font-title text-4xl italic text-white md:text-5xl lg:text-6xl">
           Tech Skills

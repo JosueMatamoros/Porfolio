@@ -36,7 +36,7 @@ export default function ExperiencePreviewSection() {
   };
 
   return (
-    <section className="relative w-full py-16">
+    <section className="relative w-full mb-16">
       <div className="w-full">
         {/* Header */}
         <div className="mb-12 text-center">
@@ -58,7 +58,7 @@ export default function ExperiencePreviewSection() {
         </div>
 
         {/* Preview cards */}
-        <div className="mb-12 grid gap-6 grid-cols-1 lg:grid-cols-3">
+        <div className="mb-6 grid gap-6 grid-cols-1 lg:grid-cols-3">
           {experiences.map((exp, index) => (
             <ExperienceCardPreview key={index} experience={exp} />
           ))}
@@ -70,8 +70,8 @@ export default function ExperiencePreviewSection() {
             onClick={goToExperiencePage}
             size="lg"
             variant="outline"
-            className="group flex items-center gap-2 rounded-full border-gray-500 text-gray-300 
-               transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black 
+            className="group flex items-center gap-2 rounded-full border-gray-500 text-gray-300
+               transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black
                hover:border-white hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] bg-transparent"
           >
             View Detailed Experience
