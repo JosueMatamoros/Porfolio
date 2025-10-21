@@ -3,8 +3,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Wand2 } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const contentVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -12,7 +13,6 @@ const contentVariants = {
   exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
 };
 
-// ✨ Animación de transformación mágica
 const magicIconVariants = {
   initial: {
     opacity: 0,
@@ -41,7 +41,6 @@ const magicIconVariants = {
   },
 };
 
-// ✨ Sparkle visual en ambas direcciones
 const sparkleVariants = {
   hidden: { opacity: 0, scale: 0 },
   visible: {
@@ -56,20 +55,55 @@ const sparkleVariants = {
   },
 };
 
+const preloadImage = (src) =>
+  new Promise((resolve) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = resolve;
+    img.onerror = resolve;
+  });
+
 export default function TechSkillsCard({ techGroups }) {
+  const pathname = usePathname(); // 📍 detecta la ruta actual
   const [hovered, setHovered] = useState(null);
   const [activeTab, setActiveTab] = useState(techGroups[0].title);
   const [magicMode, setMagicMode] = useState(false);
   const [modeKey, setModeKey] = useState(0);
 
+  // 🧭 Establecer el modo por defecto según la ruta
+  useEffect(() => {
+    if (pathname === "/skills") {
+      setMagicMode(true);
+    } else {
+      setMagicMode(false);
+    }
+  }, [pathname]);
+
+  const skillIconUrls = useMemo(() => {
+    const urls = [];
+    for (const group of techGroups) {
+      for (const sub of group.subcategories) {
+        for (const tech of sub.techs) {
+          if (!tech.customIcon) {
+            urls.push(`https://skillicons.dev/icons?i=${tech.slug}`);
+          }
+        }
+      }
+    }
+    return urls;
+  }, [techGroups]);
+
+  useEffect(() => {
+    Promise.all(skillIconUrls.map(preloadImage)).catch(() => {});
+  }, [skillIconUrls]);
+
   const toggleMagic = () => {
     setModeKey((prev) => prev + 1);
-    setMagicMode(!magicMode);
+    setMagicMode((prev) => !prev);
   };
 
   return (
     <Card className="relative bg-card/90 border border-white/10 shadow-xl overflow-hidden backdrop-blur-sm rounded-2xl m-4 lg:m-0 p-8 md:p-10 transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl">
-      {/* Botón mágico */}
       <motion.button
         onClick={toggleMagic}
         className="absolute top-4 right-4 text-white rounded-full p-2 hover:bg-white/10"
@@ -146,58 +180,56 @@ export default function TechSkillsCard({ techGroups }) {
                                 transition={{ type: "spring", stiffness: 200 }}
                               >
                                 <div className="relative overflow-hidden rounded-xl border-2 border-blue-500/30 hover:border-primary bg-background/80 backdrop-blur w-20 h-20 flex items-center justify-center transition-all duration-300 shadow-sm">
-                                  <AnimatePresence mode="wait">
-                                    {!magicMode ? (
-                                      <motion.div
-                                        key={`normal-${tech.name}-${modeKey}`}
+                                  {!magicMode ? (
+                                    <motion.div
+                                      key={`normal-${tech.name}-${modeKey}`}
+                                      variants={magicIconVariants}
+                                      initial="vanish"
+                                      animate="animate"
+                                      exit="vanish"
+                                    >
+                                      <Icon size={36} className="relative z-10" />
+                                    </motion.div>
+                                  ) : (
+                                    <>
+                                      <motion.img
+                                        key={`magic-${tech.name}-${modeKey}`}
+                                        src={skillIconUrl}
+                                        alt={tech.name}
+                                        className={`object-contain relative z-10 ${
+                                          tech.name === "Warp" || tech.name === "DataGrip"
+                                            ? "w-14 h-14"
+                                            : "w-12 h-12"
+                                        }`}
                                         variants={magicIconVariants}
                                         initial="vanish"
                                         animate="animate"
                                         exit="vanish"
-                                      >
-                                        <Icon
-                                          size={36}
-                                          className="relative z-10"
-                                        />
-                                      </motion.div>
-                                    ) : (
-                                      <>
-                                        <motion.img
-                                          key={`magic-${tech.name}-${modeKey}`}
-                                          src={skillIconUrl}
-                                          alt={tech.name}
-                                          className={`object-contain relative z-10 ${
-                                            tech.name === "Warp" || tech.name === "DataGrip"
-                                              ? "w-14 h-14"
-                                              : "w-12 h-12"
-                                          }`}
-                                          variants={magicIconVariants}
-                                          initial="vanish"
-                                          animate="animate"
-                                          exit="vanish"
-                                        />
-                                        <motion.div
-                                          className="absolute rounded-full bg-primary/50 blur-lg w-10 h-10 z-0"
-                                          variants={
-                                            magicMode
-                                              ? sparkleVariants
-                                              : sparkleVariants.off
-                                          }
-                                          initial="hidden"
-                                          animate={
-                                            magicMode ? "visible" : "off"
-                                          }
-                                        />
-                                      </>
-                                    )}
-                                  </AnimatePresence>
+                                      />
+                                      <motion.div
+                                        className="absolute rounded-full bg-primary/50 blur-lg w-10 h-10 z-0"
+                                        variants={
+                                          magicMode
+                                            ? sparkleVariants
+                                            : sparkleVariants.off
+                                        }
+                                        initial="hidden"
+                                        animate={magicMode ? "visible" : "off"}
+                                      />
+                                    </>
+                                  )}
                                 </div>
-                                <div
-                                  className={`absolute inset-x-0 bottom-0 text-[12px] font-semibold text-center
-                                    text-white opacity-0 group-hover:opacity-100 group-hover:translate-y-1
-                                    transition-all duration-300 pointer-events-none`}
-                                >
-                                  {tech.name}
+
+                                <div className="absolute inset-x-0 bottom-0 flex justify-center pointer-events-none">
+                                  <span
+                                    className="relative z-10 text-[12px] font-semibold text-white
+                                               opacity-0 translate-y-[2px]
+                                               transition-all duration-300
+                                               group-hover:opacity-100 group-hover:translate-y-0
+                                               whitespace-nowrap"
+                                  >
+                                    {tech.name}
+                                  </span>
                                 </div>
                               </motion.div>
                             );

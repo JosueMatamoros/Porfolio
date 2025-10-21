@@ -1,4 +1,3 @@
-import HeaderComponent from "@/components/layout/HeaderComponent";
 import ExperienceFullSection from "@/components/sections/ExperienceFullSection";
 
 export default function ExperiencePage() {

@@ -1,7 +1,7 @@
 import HeroSection from "@/components/sections/home/HeroSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import ExperiencePreviewSection from "@/components/sections/home/ExperiencePreviewSection";
-import TechSkills from "@/components/sections/TechSkills";
+import TechSkills from "@/components/sections/TechSkillsSection";
 import SoftSkillsSection from "@/components/sections/SoftSkillsSection";
 
 export default function Home() {
