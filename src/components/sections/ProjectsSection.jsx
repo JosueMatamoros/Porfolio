@@ -5,9 +5,19 @@ import { ProjectCard } from "@/components/common/ProjectCard";
 export default function ProjectsSection() {
   return (
     <section className="mb-16">
-      <h2 className="mb-4 text-center font-title text-4xl italic text-white md:text-5xl lg:text-6xl">
-        Featured Projects
-      </h2>
+      <div className="mb-12 text-center">
+        <h2 className="mb-4 font-title text-4xl italic text-white md:text-5xl lg:text-6xl">
+          Featured Projects
+        </h2>
+        <p className="mx-auto max-w-3xl text-lg leading-relaxed text-white/70 md:text-xl">
+          These are some of my{" "}
+          <span className="font-semibold text-secondary">
+            featured web projects{" "}
+          </span>
+          that I’ve worked on.
+        </p>
+      </div>
+
       <div className="container mx-auto px-4 space-y-10">
         <ProjectCard
           title="Digital Mathematics Journal"
