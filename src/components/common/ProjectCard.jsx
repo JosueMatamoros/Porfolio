@@ -112,8 +112,9 @@ export function ProjectCard({
                     src={currentMockups[currentIndex] || "/placeholder.svg"}
                     alt={`${title} - ${viewMode} view ${currentIndex + 1}`}
                     fill
+                    sizes="(max-width: 768px) 90vw, 800px"
                     className="object-contain drop-shadow-2xl"
-                    priority={false}
+                    priority={currentIndex === 0}
                   />
                 </motion.div>
               </AnimatePresence>

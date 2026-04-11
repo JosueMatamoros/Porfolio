@@ -1,4 +1,3 @@
-import React from "react";
 import TechSkillsSection from "@/components/sections/TechSkillsSection";
 import SoftSkillsSection from "@/components/sections/SoftSkillsSection";
 export default function SkillsPage() {

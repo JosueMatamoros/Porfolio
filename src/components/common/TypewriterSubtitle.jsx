@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function TypewriterSubtitle() {
-  const fullText = "< Junior Developer />"; // Final text that will be typed out
+  const fullText = "< Software Developer />"; // Final text that will be typed out
   const wrongCharIndex = fullText.length - 2; // Index before "/>"
   const typingSpeed = 100; // Normal typing speed
   const correctionSpeed = 120; // Speed for correction steps
@@ -42,17 +42,12 @@ export default function TypewriterSubtitle() {
 
     // 6. Type "/" and then ">"
     steps.push({
-      text:
-        fullText.slice(0, wrongCharIndex) +
-        '<span style="display:inline-block; transform: scale(0.6) translateY(2px); transform-origin:center;">/</span>',
+      text: fullText.slice(0, wrongCharIndex) + "/",
       delay: correctionSpeed,
     });
 
     steps.push({
-      text:
-        fullText.slice(0, wrongCharIndex) +
-        '<span style="display:inline-block; transform: scale(0.6) translateY(2px); transform-origin:center;">/</span>' +
-        ">",
+      text: fullText.slice(0, wrongCharIndex) + "/>",
       delay: correctionSpeed,
     });
 
@@ -72,6 +67,34 @@ export default function TypewriterSubtitle() {
     });
   }, []);
 
+  const getDisplayHtml = () => {
+    const bracket = 'display:inline-block;font-size:1.15em;vertical-align:middle;line-height:1;';
+    const slash   = 'display:inline-block;font-size:0.8em;vertical-align:middle;line-height:1;';
+    const text = displayedText;
+    let html = '';
+
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i];
+      const isLast = i === text.length - 1;
+
+      if (i === 0 && char === '<') {
+        html += `<span style="${bracket}">&lt;</span>`;
+      } else if (char === '/' && (isLast || text[i + 1] === '>')) {
+        html += `<span style="${slash}">/</span>`;
+      } else if (char === '>' && isLast) {
+        if (errorMode) {
+          html += `<span style="${bracket}" class="underline decoration-red-500 [text-decoration-style:wavy] underline-offset-6 decoration-2">&gt;</span>`;
+        } else {
+          html += `<span style="${bracket}">&gt;</span>`;
+        }
+      } else {
+        html += char === '<' ? '&lt;' : char === '>' ? '&gt;' : char;
+      }
+    }
+
+    return html;
+  };
+
   return (
     <div
       className="
@@ -81,16 +104,7 @@ export default function TypewriterSubtitle() {
       "
     >
       {/* Text with conditional underline on the last ">" when in error mode */}
-      <span
-        dangerouslySetInnerHTML={{
-          __html: errorMode
-            ? displayedText.replace(
-                />$/,
-                '<span class="underline decoration-red-500 [text-decoration-style:wavy] underline-offset-6 decoration-2">&gt;</span>'
-              )
-            : displayedText,
-        }}
-      />
+      <span dangerouslySetInnerHTML={{ __html: getDisplayHtml() }} />
 
       {/* Blinking cursor */}
       <motion.span

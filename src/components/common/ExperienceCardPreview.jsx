@@ -14,7 +14,7 @@ export default function ExperienceCardPreview({ experience }) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Card
-        className={`border border-white/10 shadow-xl overflow-hidden rounded-2xl p-8 min-h-[42=10px] flex flex-col justify-between
+        className={`border border-white/10 shadow-xl overflow-hidden rounded-2xl p-8 h-full flex flex-col justify-between
           transition-all duration-500 ease-out 
           ${isHovered ? "scale-[1.04] -translate-y-2 shadow-2xl border-white/20" : "scale-100 shadow-lg"}
         `}

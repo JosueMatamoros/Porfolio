@@ -35,13 +35,12 @@ export default function HeaderComponent() {
       <div className="max-w-7xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#hero" className="flex items-center gap-2">
+          <a href="#hero" className="flex items-center gap-2" aria-label="Ir al inicio">
             <Image
               src="/logo.webp"
               alt="JM Logo"
-              width={0}
-              height={0}
-              sizes="100vw"
+              width={45}
+              height={45}
               className="w-[45px] h-auto"
               loading="lazy"
               decoding="async"

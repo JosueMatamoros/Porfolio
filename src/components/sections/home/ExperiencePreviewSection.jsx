@@ -3,30 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import ExperienceCardPreview from "@/components/common/ExperienceCardPreview";
-import { ArrowRight } from "lucide-react"; // 👈 iconito elegante
-
-const experiences = [
-  {
-    title: "AI Unit Test Generator",
-    description:
-      "VS Code extension specialized in automated unit test generation for Unity.",
-    date: "Aug 2024",
-    tech: ["TypeScript", "VS Code API", "OpenAI", "Unity"],
-  },
-  {
-    title: "SciELO Article Markup",
-    description:
-      "Automated article markup system for academic indexing in SciELO.",
-    date: "Aug 2024",
-    tech: ["XML", "SciELO", "XPM", "Marcalyc"],
-  },
-  {
-    title: "Digital Math Journal",
-    description: "Modern academic journal platform indexed by Google Scholar.",
-    date: "Sep 2024",
-    tech: ["Next.js", "React", "Tailwind", "TypeScript"],
-  },
-];
+import { ArrowRight } from "lucide-react";
+import { experiencePreviews } from "@/lib/experiences";
 
 export default function ExperiencePreviewSection() {
   const router = useRouter();
@@ -59,7 +37,7 @@ export default function ExperiencePreviewSection() {
 
         {/* Preview cards */}
         <div className="mb-6 grid gap-6 grid-cols-1 lg:grid-cols-3">
-          {experiences.map((exp, index) => (
+          {experiencePreviews.map((exp, index) => (
             <ExperienceCardPreview key={index} experience={exp} />
           ))}
         </div>

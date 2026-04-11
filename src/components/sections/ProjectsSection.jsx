@@ -4,7 +4,7 @@ import { ProjectCard } from "@/components/common/ProjectCard";
 
 export default function ProjectsSection() {
   return (
-    <section className="mb-16">
+    <section className="mb-16 mt-10 md:mt-0">
       <div className="mb-12 text-center">
         <h2 className="mb-4 font-title text-4xl italic text-white md:text-5xl lg:text-6xl">
           Featured Projects
