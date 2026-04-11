@@ -10,7 +10,7 @@ import {
   SiC,
   SiCplusplus,
   SiHtml5,
-  SiCss3,
+  SiCss,
   SiTailwindcss,
   SiReact,
   SiVuedotjs,
@@ -41,7 +41,7 @@ const techGroups = [
         subtitle: "Styling",
         techs: [
           { name: "HTML", icon: SiHtml5, slug: "html" },
-          { name: "CSS", icon: SiCss3, slug: "css" },
+          { name: "CSS", icon: SiCss, slug: "css" },
           { name: "Tailwind", icon: SiTailwindcss, slug: "tailwind" },
         ],
       },
