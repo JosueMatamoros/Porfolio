@@ -8,6 +8,7 @@ import {
   CheckCircle,
   ChevronDown,
   ChevronUp,
+  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -34,7 +35,7 @@ export default function ExperienceCard({ project }) {
             <span className="font-mono text-sm text-white/70">
               {project.startDate} — {endDate}
             </span>
-            {!project.endDate && (
+            {project.status === "active" && (
               <div className="flex items-center gap-2">
                 <div className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
                 <span className="font-mono text-xs uppercase tracking-wider text-green-400">
@@ -42,11 +43,36 @@ export default function ExperienceCard({ project }) {
                 </span>
               </div>
             )}
+            {project.status === "development" && (
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 animate-pulse rounded-full bg-yellow-400" />
+                <span className="font-mono text-xs uppercase tracking-wider text-yellow-400">
+                  In Development
+                </span>
+              </div>
+            )}
           </div>
 
-          {/* Botón GitHub */}
-          {project.githubUrl && (
-            <div className="flex justify-center md:justify-end">
+          {/* Botones GitHub + Live */}
+          <div className="flex justify-center md:justify-end gap-2 flex-wrap">
+            {project.liveUrl && (
+              <Button
+                asChild
+                variant="outline"
+                className="border-emerald-500/40 text-emerald-400 hover:text-black hover:bg-emerald-400 hover:border-emerald-400 hover:scale-105 transition-all duration-200 rounded-full"
+              >
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  <span>Live Site</span>
+                </a>
+              </Button>
+            )}
+            {project.githubUrl && (
               <Button
                 asChild
                 variant="outline"
@@ -62,8 +88,8 @@ export default function ExperienceCard({ project }) {
                   <span>GitHub</span>
                 </a>
               </Button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {/* Title */}

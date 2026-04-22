@@ -14,16 +14,13 @@ export default function ExperienceFullSection() {
             Experience
           </h2>
           <p className="mx-auto max-w-3xl text-lg leading-relaxed text-white/70 md:text-xl">
-            I’ve worked on multiple projects involving{" "}
-            <span className="font-semibold text-secondary">AI tooling</span>,{" "}
-            <span className="font-semibold text-secondary">
-              academic platforms
-            </span>
-            , and{" "}
-            <span className="font-semibold text-secondary">
-              modern web development
-            </span>
-            . Building efficient solutions that actually solve problems.
+            From{" "}
+            <span className="font-semibold text-secondary">real client products</span>{" "}
+            with live users to{" "}
+            <span className="font-semibold text-secondary">academic platforms</span>{" "}
+            and{" "}
+            <span className="font-semibold text-secondary">AI tooling</span>
+            . Every project here solves a real problem for a real person.
           </p>
         </div>
 

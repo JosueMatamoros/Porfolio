@@ -115,6 +115,24 @@ export default function HeroSection() {
 
           {/* Texto */}
           <div className="flex flex-col gap-5 text-center lg:text-left max-w-2xl">
+
+            {/* Badge: Open to internship — encima del nombre */}
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              animate={isVisible ? "visible" : "hidden"}
+              transition={{ delay: 0 }}
+              className="flex justify-center lg:justify-start will-change-transform"
+            >
+              <span className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/8 px-5 py-2 text-sm font-medium text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.12)]">
+                <span className="relative flex h-2 w-2 shrink-0">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
+                Open to Professional Internship · 2026
+              </span>
+            </motion.div>
+
             <motion.h1
               variants={fadeInUp}
               initial="hidden"
@@ -136,12 +154,16 @@ export default function HeroSection() {
               transition={{ delay: 0.2 }}
               className="text-lg md:text-xl text-gray-400 leading-relaxed max-w-2xl will-change-transform"
             >
-              Graduate from the{" "}
+              Computer Science student at the{" "}
               <span className="font-bold bg-gradient-to-r from-white via-[#3B82F6] to-white bg-[length:200%_auto] bg-clip-text text-transparent animate-shine">
                 Instituto Tecnológico de Costa Rica (TEC)
+              </span>
+              , graduating in 2026. Serving as a{" "}
+              <span className="font-bold bg-gradient-to-r from-white via-[#3B82F6] to-white bg-[length:200%_auto] bg-clip-text text-transparent animate-shine">
+                Software Development Teaching Assistant
               </span>{" "}
-              with experience as an assistant in three academic projects over
-              one year. Strong background in{" "}
+              on three active academic projects since August 2024. Strong
+              background in{" "}
               <span className="font-bold bg-gradient-to-r from-white via-[#3B82F6] to-white bg-[length:200%_auto] bg-clip-text text-transparent animate-shine">
                 programming
               </span>
@@ -153,7 +175,8 @@ export default function HeroSection() {
               <span className="font-bold bg-gradient-to-r from-white via-[#3B82F6] to-white bg-[length:200%_auto] bg-clip-text text-transparent animate-shine">
                 web development
               </span>
-              , with a focus on creating efficient and scalable solutions.
+              , with B2 English proficiency and a focus on creating efficient
+              and scalable solutions.
             </motion.p>
 
             {/* Redes sociales */}
