@@ -16,7 +16,7 @@ export default function ExperienceCardPreview({ experience }) {
       <Card
         className={`border border-white/10 shadow-xl overflow-hidden rounded-2xl p-8 h-full flex flex-col justify-between
           transition-all duration-500 ease-out 
-          ${isHovered ? "scale-[1.04] -translate-y-2 shadow-2xl border-white/20" : "scale-100 shadow-lg"}
+          ${isHovered ? "md:scale-[1.04] md:-translate-y-2 shadow-2xl border-white/20" : "scale-100 shadow-lg"}
         `}
       >
         {/* Date Badge */}

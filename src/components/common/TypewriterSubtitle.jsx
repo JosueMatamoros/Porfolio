@@ -65,7 +65,7 @@ export default function TypewriterSubtitle() {
         if (step.action === "hideCursor") setCursorVisible(false);
       }, totalDelay);
     });
-  }, []);
+  }, [wrongCharIndex]);
 
   const getDisplayHtml = () => {
     const bracket = 'display:inline-block;font-size:1.15em;vertical-align:middle;line-height:1;';

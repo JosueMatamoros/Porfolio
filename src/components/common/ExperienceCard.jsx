@@ -15,7 +15,7 @@ export default function ExperienceCard({ project }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Card className="bg-card/90 border border-white/10 shadow-xl overflow-hidden backdrop-blur-sm rounded-2xl m-4 lg:m-0 p-6 md:p-8 transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl">
+      <Card className="bg-card/90 border border-white/10 shadow-xl overflow-hidden backdrop-blur-sm rounded-2xl p-6 md:p-8 transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl">
         {/* Header: fecha + status + botones */}
         <div className="mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3 border-b border-white/10 pb-4">
           <div className="flex flex-wrap items-center gap-3 justify-center md:justify-start">

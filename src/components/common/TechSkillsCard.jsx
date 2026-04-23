@@ -103,25 +103,14 @@ export default function TechSkillsCard({ techGroups }) {
   };
 
   return (
-    <Card className="relative bg-card/90 border border-white/10 shadow-xl overflow-hidden backdrop-blur-sm rounded-2xl m-4 lg:m-0 p-8 md:p-10 transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl">
-      <motion.button
-        onClick={toggleMagic}
-        className="absolute top-4 right-4 text-white rounded-full p-2 hover:bg-white/10"
-        whileTap={{ scale: 0.9 }}
-        whileHover={{
-          scale: [1, 1.15, 1],
-          transition: { duration: 0.6 },
-        }}
-      >
-        <Wand2 size={20} />
-      </motion.button>
-
+    <Card className="bg-card/90 border border-white/10 shadow-xl overflow-hidden backdrop-blur-sm rounded-2xl p-6 md:p-10 transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl">
       <Tabs
         defaultValue={activeTab}
         onValueChange={setActiveTab}
         className="w-full"
       >
-        <TabsList className="mb-6 flex flex-wrap justify-start gap-3 bg-transparent p-0">
+        <div className="flex items-center gap-2 mb-6">
+        <TabsList className="grid grid-cols-2 md:flex md:flex-nowrap gap-3 bg-transparent p-0 h-auto">
           {techGroups.map((group) => (
             <motion.div
               key={group.title}
@@ -130,7 +119,7 @@ export default function TechSkillsCard({ techGroups }) {
             >
               <TabsTrigger
                 value={group.title}
-                className={`rounded-full px-5 py-2 text-sm font-medium tracking-wide transition-all
+                className={`rounded-full px-5 py-2 text-sm font-medium tracking-wide transition-all w-full md:w-auto
                   ${
                     activeTab === group.title
                       ? "bg-primary text-white shadow-md"
@@ -142,6 +131,15 @@ export default function TechSkillsCard({ techGroups }) {
             </motion.div>
           ))}
         </TabsList>
+          <motion.button
+            onClick={toggleMagic}
+            className="flex-shrink-0 ml-auto text-white rounded-full p-1.5 hover:bg-white/10 self-start"
+            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: [1, 1.15, 1], transition: { duration: 0.6 } }}
+          >
+            <Wand2 size={20} />
+          </motion.button>
+        </div>
 
         {techGroups.map((group) => (
           <TabsContent key={group.title} value={group.title}>
@@ -155,9 +153,9 @@ export default function TechSkillsCard({ techGroups }) {
                   exit="exit"
                   className="space-y-8"
                 >
-                  <div className="flex flex-col lg:flex-row justify-between">
+                  <div className="flex flex-col lg:flex-row justify-between gap-6">
                     {group.subcategories.map((subcategory, idx) => (
-                      <div key={idx} className="flex-1 min-w-[250px]">
+                      <div key={idx} className="flex-1 min-w-0">
                         {subcategory.subtitle && (
                           <h5 className="text-xs font-semibold text-muted-foreground mb-3 tracking-wider uppercase">
                             {subcategory.subtitle}

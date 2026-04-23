@@ -129,7 +129,7 @@ export default function SoftSkillsSection() {
   const [expandedSkill, setExpandedSkill] = useState(null);
 
   return (
-    <section className="mb-16  mx-auto">
+    <section className="mb-16">
       <div className="mb-12 text-center">
         <h2 className="mb-4 font-title text-4xl italic text-white md:text-5xl lg:text-6xl">
           Soft Skills

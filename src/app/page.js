@@ -11,7 +11,7 @@ export default function Home() {
         <HeroSection />
       </div>
 
-      <div className=" max-w-5xl">
+      <div className="w-full max-w-5xl px-4 lg:px-6">
       <ProjectsSection />
       <ExperiencePreviewSection/>
       <TechSkills/>

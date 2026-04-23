@@ -14,11 +14,11 @@ export default function ProjectsSection() {
           <span className="font-semibold text-secondary">
             featured web projects{" "}
           </span>
-          that I've worked on.
+          that I&apos;ve worked on.
         </p>
       </div>
 
-      <div className="container mx-auto px-4 space-y-10">
+      <div className="space-y-10">
         <ProjectCard
           title="Digital Mathematics Journal"
           description="A modern educational magazine created as an innovative proposal for Instituto Tecnológico de Costa Rica, designed to replace their outdated site with a more dynamic, accessible, and responsive digital platform."
