@@ -103,7 +103,7 @@ export default function HeroSection() {
           >
             <div className="w-56 h-56 lg:w-72 lg:h-72 rounded-full overflow-hidden shadow-2xl ring-4 ring-primary/30 ring-offset-2 ring-offset-navy-dark">
               <Image
-                src="/profile.webp"
+                src="/profile.png"
                 alt="Josué Matamoros"
                 width={384}
                 height={384}
@@ -315,7 +315,7 @@ export default function HeroSection() {
                            hover:scale-105 hover:bg-gray-200"
                 asChild
               >
-                <a href="/experience">View Projects</a>
+                <a href="/projects">View Projects</a>
               </Button>
               <Button
                 size="lg"

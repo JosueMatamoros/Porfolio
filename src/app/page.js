@@ -12,7 +12,7 @@ export default function Home() {
       </div>
 
       <div className="w-full max-w-5xl px-4 lg:px-6">
-      <ProjectsSection />
+      <ProjectsSection limit={2} />
       <ExperiencePreviewSection/>
       <TechSkills/>
       <SoftSkillsSection/>

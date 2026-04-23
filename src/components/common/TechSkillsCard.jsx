@@ -103,14 +103,33 @@ export default function TechSkillsCard({ techGroups }) {
   };
 
   return (
+    <div className="relative">
+      {/* Wand — solo en mobile, fuera de la card */}
+      <motion.button
+        onClick={toggleMagic}
+        className="md:hidden absolute -top-10 right-1 z-10 text-white rounded-full p-1.5 hover:bg-white/10"
+        whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: [1, 1.15, 1], transition: { duration: 0.6 } }}
+      >
+        <Wand2 size={20} />
+      </motion.button>
+
     <Card className="bg-card/90 border border-white/10 shadow-xl overflow-hidden backdrop-blur-sm rounded-2xl p-6 md:p-10 transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl">
+      {/* Wand — solo en desktop, dentro de la card */}
+      <motion.button
+        onClick={toggleMagic}
+        className="hidden md:block absolute top-4 right-4 text-white rounded-full p-2 hover:bg-white/10"
+        whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: [1, 1.15, 1], transition: { duration: 0.6 } }}
+      >
+        <Wand2 size={20} />
+      </motion.button>
       <Tabs
         defaultValue={activeTab}
         onValueChange={setActiveTab}
         className="w-full"
       >
-        <div className="flex items-center gap-2 mb-6">
-        <TabsList className="grid grid-cols-2 md:flex md:flex-nowrap gap-3 bg-transparent p-0 h-auto">
+        <TabsList className="grid grid-cols-2 md:flex md:flex-nowrap gap-3 bg-transparent p-0 h-auto mb-6">
           {techGroups.map((group) => (
             <motion.div
               key={group.title}
@@ -131,15 +150,6 @@ export default function TechSkillsCard({ techGroups }) {
             </motion.div>
           ))}
         </TabsList>
-          <motion.button
-            onClick={toggleMagic}
-            className="flex-shrink-0 ml-auto text-white rounded-full p-1.5 hover:bg-white/10 self-start"
-            whileTap={{ scale: 0.9 }}
-            whileHover={{ scale: [1, 1.15, 1], transition: { duration: 0.6 } }}
-          >
-            <Wand2 size={20} />
-          </motion.button>
-        </div>
 
         {techGroups.map((group) => (
           <TabsContent key={group.title} value={group.title}>
@@ -243,5 +253,6 @@ export default function TechSkillsCard({ techGroups }) {
         ))}
       </Tabs>
     </Card>
+    </div>
   );
 }

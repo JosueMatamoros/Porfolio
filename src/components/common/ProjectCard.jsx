@@ -10,6 +10,7 @@ import {
   ExternalLink,
   ChevronLeft,
   ChevronRight,
+  FileText,
 } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,6 +22,7 @@ export function ProjectCard({
   mockups,
   liveUrl,
   githubUrl,
+  pdfUrl,
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [viewMode, setViewMode] = useState("desktop");
@@ -71,8 +73,8 @@ export function ProjectCard({
             )}
           </Button>
 
-          {/* Navigation arrows */}
-          {[
+          {/* Navigation arrows — hidden when only one image */}
+          {currentMockups.length > 1 && [
             {
               dir: "prev",
               icon: <ChevronLeft className="h-5 w-5" />,
@@ -97,7 +99,7 @@ export function ProjectCard({
           ))}
 
           {/* Main mockup */}
-          <div className="relative h-[500px] flex items-center justify-center p-4">
+          <div className="relative h-[500px] flex items-center justify-center p-4 pb-12">
             <div className="relative w-full h-full flex items-center justify-center">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -165,6 +167,22 @@ export function ProjectCard({
                   >
                     <span>View Project</span>
                     <ExternalLink className="h-4 w-4" />
+                  </a>
+                </Button>
+              )}
+              {pdfUrl && (
+                <Button
+                  asChild
+                  className="bg-primary/90 hover:bg-primary hover:scale-105 text-white shadow-sm hover:shadow transition-all duration-200"
+                >
+                  <a
+                    href={pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                  >
+                    <span>Sample PDF</span>
+                    <FileText className="h-4 w-4" />
                   </a>
                 </Button>
               )}
