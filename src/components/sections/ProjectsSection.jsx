@@ -14,7 +14,7 @@ export default function ProjectsSection() {
           <span className="font-semibold text-secondary">
             featured web projects{" "}
           </span>
-          that I’ve worked on.
+          that I've worked on.
         </p>
       </div>
 
@@ -25,18 +25,42 @@ export default function ProjectsSection() {
           technologies={["Next.js", "React", "Tailwind CSS", "JavaScript"]}
           mockups={{
             desktop: [
-              "/projects/Revista1.webp",
-              "/projects/Revista2.webp",
-              "/projects/Revista3.webp",
+              "/mockups/revistaMate/rm-desktop-home.webp",
+              "/mockups/revistaMate/rm-desktop-books.webp",
+              "/mockups/revistaMate/rm-desktop-category.webp",
+              "/mockups/revistaMate/rm-desktop-article.webp",
             ],
             mobile: [
-              "/projects/RevistaPhone1.webp",
-              "/projects/RevistaPhone2.webp",
-              "/projects/RevistaPhone3.webp",
+              "/mockups/revistaMate/rm-mobile-home.webp",
+              "/mockups/revistaMate/rm-mobile-article.webp",
+              "/mockups/revistaMate/rm-mobile-books.webp",
+              "/mockups/revistaMate/rm-mobile-category.webp",
             ],
           }}
           liveUrl="https://tecdigital.tec.ac.cr/servicios/revistamatematica/"
           githubUrl="https://github.com/JosueMatamoros/RevistaMatematicas"
+        />
+
+        <ProjectCard
+          title="Nature Tours La Fortuna"
+          description="A full-stack booking platform for a Costa Rican eco-tourism company, featuring tour listings, real-time availability calendars, secure online payments via PayPal and SINPE Móvil, and a complete checkout flow — all optimized for mobile."
+          technologies={["Vite", "JavaScript", "Node.js", "SQL", "Neon", "PayPal API"]}
+          mockups={{
+            desktop: [
+              "/mockups/natureTours/nt-desktop-home.webp",
+              "/mockups/natureTours/nt-desktop-tours.webp",
+              "/mockups/natureTours/nt-desktop-booking.webp",
+              "/mockups/natureTours/nt-desktop-checkout.webp",
+            ],
+            mobile: [
+              "/mockups/natureTours/nt-mobile-home.webp",
+              "/mockups/natureTours/nt-mobile-tours.webp",
+              "/mockups/natureTours/nt-mobile-booking.webp",
+              "/mockups/natureTours/nt-mobile-checkout.webp",
+            ],
+          }}
+          liveUrl="https://naturetourslafortuna.com/"
+          githubUrl="https://github.com/JosueMatamoros/NatureTours"
         />
       </div>
     </section>
