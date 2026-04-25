@@ -120,7 +120,7 @@ export default function ProjectsSection({ limit }) {
             size="lg"
             variant="outline"
             className="group flex items-center gap-2 rounded-full border-gray-500 text-gray-300
-               transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black
+               transition-all duration-300 hover:-translate-y-2 hover:scale-105 hover:bg-white hover:text-black
                hover:border-white hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] bg-transparent"
           >
             View All Projects

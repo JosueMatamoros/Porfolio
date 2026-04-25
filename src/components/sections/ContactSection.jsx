@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import emailjs from "@emailjs/browser";
 import {
   Send, CheckCircle, Loader2, Mail, MapPin,
   Github, Linkedin, Clock, ArrowUpRight,
@@ -67,10 +68,25 @@ export default function ContactSection() {
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setStatus("loading");
-    setTimeout(() => {
+
+    emailjs.send(
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+      {
+        from_name:  fields.name,
+        from_email: fields.email,
+        message:    fields.message,
+      },
+      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+    )
+    .then(() => {
       setStatus("success");
       setFields({ name: "", email: "", message: "" });
-    }, 1200);
+    })
+    .catch(() => {
+      setStatus("idle");
+      setErrors({ message: "Failed to send. Please try again or email me directly." });
+    });
   };
 
   return (
@@ -224,7 +240,7 @@ export default function ContactSection() {
                 className="flex flex-col gap-6"
               >
                 <p className="text-xs font-mono text-white/30 tracking-widest uppercase">
-                  // new_message.send()
+                  {`// new_message.send()`}
                 </p>
 
                 {/* Name + Email row */}
