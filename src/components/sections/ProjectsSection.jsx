@@ -1,6 +1,9 @@
 "use client";
 
 import { ProjectCard } from "@/components/common/ProjectCard";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const projects = [
   {
@@ -89,6 +92,7 @@ const projects = [
 
 export default function ProjectsSection({ limit }) {
   const visible = limit ? projects.slice(0, limit) : projects;
+  const router = useRouter();
 
   return (
     <section className="mb-16 mt-10 md:mt-0">
@@ -108,6 +112,22 @@ export default function ProjectsSection({ limit }) {
           <ProjectCard key={project.title} {...project} />
         ))}
       </div>
+
+      {limit && (
+        <div className="flex justify-center mt-10">
+          <Button
+            onClick={() => router.push("/projects")}
+            size="lg"
+            variant="outline"
+            className="group flex items-center gap-2 rounded-full border-gray-500 text-gray-300
+               transition-all duration-300 hover:scale-110 hover:bg-white hover:text-black
+               hover:border-white hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] bg-transparent"
+          >
+            View All Projects
+            <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+          </Button>
+        </div>
+      )}
     </section>
   );
 }

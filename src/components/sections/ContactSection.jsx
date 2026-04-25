@@ -2,13 +2,45 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, CheckCircle, Loader2, Mail, MapPin, Github, Linkedin } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import {
+  Send, CheckCircle, Loader2, Mail, MapPin,
+  Github, Linkedin, Clock, ArrowUpRight,
+} from "lucide-react";
 
-const inputBase =
-  "w-full rounded-xl bg-white/[0.04] border border-white/10 px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-all duration-200 focus:border-primary/60 focus:bg-white/[0.07] focus:ring-1 focus:ring-primary/30";
+/* ── Floating-label input wrapper ─────────────────────────── */
+function FloatingField({ id, label, error, children, charCount, maxChars }) {
+  return (
+    <div className="relative">
+      {children}
+      <label
+        htmlFor={id}
+        className="pointer-events-none absolute left-4 top-3.5 text-sm text-white/35 transition-all duration-200
+                   peer-focus:-translate-y-6 peer-focus:text-[11px] peer-focus:text-primary/80
+                   peer-[&:not(:placeholder-shown)]:-translate-y-6 peer-[&:not(:placeholder-shown)]:text-[11px] peer-[&:not(:placeholder-shown)]:text-white/50"
+      >
+        {label}
+      </label>
+      <div className="flex items-center justify-between mt-1.5 min-h-[16px]">
+        {error
+          ? <p className="text-[11px] text-red-400">{error}</p>
+          : <span />
+        }
+        {maxChars && (
+          <p className={`text-[11px] tabular-nums ${charCount > maxChars * 0.9 ? "text-amber-400" : "text-white/25"}`}>
+            {charCount}/{maxChars}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
 
+const fieldCls =
+  "peer w-full rounded-xl bg-white/[0.04] border border-white/10 px-4 pt-4 pb-2.5 text-sm text-white placeholder-transparent outline-none transition-all duration-200 focus:border-primary/50 focus:bg-white/[0.07] focus:ring-1 focus:ring-primary/20";
+
+const MAX_MSG = 500;
+
+/* ── Main ──────────────────────────────────────────────────── */
 export default function ContactSection() {
   const [status, setStatus] = useState("idle"); // idle | loading | success
   const [fields, setFields] = useState({ name: "", email: "", message: "" });
@@ -20,6 +52,7 @@ export default function ContactSection() {
     if (!fields.email.trim())                     e.email   = "Email is required.";
     else if (!/\S+@\S+\.\S+/.test(fields.email)) e.email   = "Enter a valid email.";
     if (fields.message.trim().length < 10)        e.message = "Message must be at least 10 characters.";
+    if (fields.message.length > MAX_MSG)          e.message = `Max ${MAX_MSG} characters.`;
     return e;
   };
 
@@ -37,23 +70,14 @@ export default function ContactSection() {
     setTimeout(() => {
       setStatus("success");
       setFields({ name: "", email: "", message: "" });
-    }, 1000);
+    }, 1200);
   };
 
-  const info = [
-    { icon: Mail,    label: "1002matamoros@gmail.com" },
-    { icon: MapPin,  label: "La Fortuna, Costa Rica"  },
-  ];
-
-  const socials = [
-    { icon: Github,   href: "https://github.com/JosueMatamoros", label: "GitHub"   },
-    { icon: Linkedin, href: "https://linkedin.com",              label: "LinkedIn" },
-  ];
-
   return (
-    <section className="relative w-full mb-16">
-      {/* Header */}
-      <div className="mb-12 text-center">
+    <section className="relative w-full mb-16 overflow-hidden">
+
+      {/* ── Header ── */}
+      <div className="relative mb-12 text-center">
         <h2 className="mb-4 font-title text-4xl italic text-white md:text-5xl lg:text-6xl">
           Contact
         </h2>
@@ -63,148 +87,185 @@ export default function ContactSection() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        {/* Left panel — info */}
-        <Card className="lg:col-span-2 bg-card/90 border border-white/10 rounded-2xl p-7 flex flex-col justify-between gap-8 backdrop-blur-sm">
-          <div className="space-y-6">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-white/40 mb-1">
-                Available for
-              </p>
-              <p className="text-white/80 leading-relaxed text-sm">
-                Freelance projects, professional internships, and collaborations starting 2026.
-              </p>
+      {/* ── Grid ── */}
+      <div className="relative grid grid-cols-1 lg:grid-cols-5 gap-5">
+
+        {/* ── Left panel ── */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="lg:col-span-2 flex flex-col gap-5"
+        >
+          {/* Big statement card */}
+          <div className="rounded-2xl bg-gradient-to-br from-primary/20 via-primary/5 to-transparent border border-primary/20 p-7 flex-1">
+            <h3 className="font-title text-3xl italic text-white leading-tight mb-3">
+              Let&apos;s build<br />
+              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                something great
+              </span>
+            </h3>
+            <p className="text-white/55 text-sm leading-relaxed">
+              Open to freelance projects, professional internships, and creative collaborations starting 2026.
+            </p>
+          </div>
+
+          {/* Status + info card */}
+          <div className="rounded-2xl bg-card/80 border border-white/10 p-6 backdrop-blur-sm space-y-5">
+            {/* Response time badge */}
+            <div className="flex items-center gap-2.5">
+              <div className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </div>
+              <span className="text-xs text-white/50 flex items-center gap-1.5">
+                <Clock className="w-3 h-3" />
+                Usually responds within 24 hours
+              </span>
             </div>
 
+            {/* Contact info */}
             <div className="space-y-3">
-              {info.map(({ icon: Icon, label }) => (
-                <div key={label} className="flex items-center gap-3 text-sm text-white/70">
-                  <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0">
-                    <Icon className="w-4 h-4 text-primary" />
+              {[
+                { icon: Mail,    text: "1002matamoros@gmail.com" },
+                { icon: MapPin,  text: "La Fortuna, Costa Rica"  },
+              ].map(({ icon: Icon, text }) => (
+                <div key={text} className="flex items-center gap-3 text-sm text-white/60">
+                  <div className="w-8 h-8 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center flex-shrink-0">
+                    <Icon className="w-3.5 h-3.5 text-primary/80" />
                   </div>
-                  <span>{label}</span>
+                  <span>{text}</span>
                 </div>
               ))}
             </div>
-          </div>
 
-          {/* Socials */}
-          <div className="flex gap-3">
-            {socials.map(({ icon: Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="w-10 h-10 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-white/60 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all duration-200 cursor-pointer"
-              >
-                <Icon className="w-4 h-4" />
-              </a>
-            ))}
+            {/* Socials */}
+            <div className="flex gap-2 pt-1">
+              {[
+                { icon: Github,   href: "https://github.com/JosueMatamoros", label: "GitHub"   },
+                { icon: Linkedin, href: "https://linkedin.com",              label: "LinkedIn" },
+              ].map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="group flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.04] text-white/50 hover:text-white hover:border-white/25 hover:bg-white/10 transition-all duration-200 text-xs cursor-pointer"
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  {label}
+                  <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-150" />
+                </a>
+              ))}
+            </div>
           </div>
-        </Card>
+        </motion.div>
 
-        {/* Right panel — form */}
-        <Card className="lg:col-span-3 bg-card/90 border border-white/10 rounded-2xl p-7 backdrop-blur-sm">
+        {/* ── Right panel — form ── */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="lg:col-span-3 rounded-2xl bg-card/80 border border-white/10 p-7 backdrop-blur-sm"
+        >
           <AnimatePresence mode="wait">
             {status === "success" ? (
               <motion.div
                 key="success"
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                className="h-full min-h-[260px] flex flex-col items-center justify-center gap-4 text-center"
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                className="min-h-[320px] flex flex-col items-center justify-center gap-5 text-center"
               >
-                <CheckCircle className="w-12 h-12 text-emerald-400" />
-                <h3 className="text-xl font-bold text-white">Message sent!</h3>
-                <p className="text-white/60 text-sm max-w-xs">
-                  Thanks for reaching out. I&apos;ll get back to you as soon as possible.
-                </p>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="mt-2 rounded-full border-white/20 text-white/70 hover:text-white hover:bg-white/10 bg-transparent"
+                {/* Animated ring + check */}
+                <div className="relative flex items-center justify-center">
+                  <motion.div
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: [0, 1.3, 1], opacity: [0, 0.3, 0] }}
+                    transition={{ duration: 0.8, delay: 0.1 }}
+                    className="absolute w-24 h-24 rounded-full bg-emerald-500"
+                  />
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.15 }}
+                    className="w-16 h-16 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center"
+                  >
+                    <CheckCircle className="w-8 h-8 text-emerald-400" />
+                  </motion.div>
+                </div>
+
+                <div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Message sent!</h3>
+                  <p className="text-white/50 text-sm max-w-xs">
+                    Thanks for reaching out — I&apos;ll get back to you as soon as possible.
+                  </p>
+                </div>
+
+                <button
                   onClick={() => setStatus("idle")}
+                  className="text-xs text-white/40 hover:text-white/70 underline underline-offset-4 transition-colors cursor-pointer"
                 >
-                  Send another
-                </Button>
+                  Send another message
+                </button>
               </motion.div>
             ) : (
               <motion.form
                 key="form"
-
                 onSubmit={handleSubmit}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 noValidate
-                className="flex flex-col gap-5"
+                className="flex flex-col gap-6"
               >
-                {/* Name */}
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="name" className="text-xs font-medium text-white/50 uppercase tracking-wider">
-                    Name <span className="text-primary">*</span>
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    autoComplete="name"
-                    placeholder="Josué Matamoros"
-                    value={fields.name}
-                    onChange={handleChange}
-                    className={inputBase}
-                  />
-                  {errors.name && (
-                    <p className="text-xs text-red-400 mt-0.5">{errors.name}</p>
-                  )}
-                </div>
+                <p className="text-xs font-mono text-white/30 tracking-widest uppercase">
+                  // new_message.send()
+                </p>
 
-                {/* Email */}
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="email" className="text-xs font-medium text-white/50 uppercase tracking-wider">
-                    Email <span className="text-primary">*</span>
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    placeholder="you@example.com"
-                    value={fields.email}
-                    onChange={handleChange}
-                    className={inputBase}
-                  />
-                  {errors.email && (
-                    <p className="text-xs text-red-400 mt-0.5">{errors.email}</p>
-                  )}
+                {/* Name + Email row */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <FloatingField id="name" label="Your name *" error={errors.name}>
+                    <input
+                      id="name" name="name" type="text" autoComplete="name"
+                      placeholder=" " value={fields.name} onChange={handleChange}
+                      className={fieldCls}
+                    />
+                  </FloatingField>
+
+                  <FloatingField id="email" label="Your email *" error={errors.email}>
+                    <input
+                      id="email" name="email" type="email" autoComplete="email"
+                      placeholder=" " value={fields.email} onChange={handleChange}
+                      className={fieldCls}
+                    />
+                  </FloatingField>
                 </div>
 
                 {/* Message */}
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="message" className="text-xs font-medium text-white/50 uppercase tracking-wider">
-                    Message <span className="text-primary">*</span>
-                  </label>
+                <FloatingField
+                  id="message" label="Tell me about your project *"
+                  error={errors.message}
+                  charCount={fields.message.length} maxChars={MAX_MSG}
+                >
                   <textarea
-                    id="message"
-                    name="message"
-                    rows={5}
-                    placeholder="Tell me about your project or idea..."
-                    value={fields.message}
-                    onChange={handleChange}
-                    className={`${inputBase} resize-none`}
+                    id="message" name="message" rows={6}
+                    placeholder=" " value={fields.message} onChange={handleChange}
+                    className={`${fieldCls} resize-none`}
                   />
-                  {errors.message && (
-                    <p className="text-xs text-red-400 mt-0.5">{errors.message}</p>
-                  )}
-                </div>
+                </FloatingField>
 
-                <Button
+                {/* Submit */}
+                <motion.button
                   type="submit"
                   disabled={status === "loading"}
-                  size="lg"
-                  className="rounded-full bg-white text-black font-semibold hover:bg-gray-200 hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100 flex items-center gap-2 cursor-pointer"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full rounded-full bg-white text-black font-semibold py-3.5 text-sm flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {status === "loading" ? (
                     <>
@@ -217,11 +278,11 @@ export default function ContactSection() {
                       <Send className="w-4 h-4" />
                     </>
                   )}
-                </Button>
+                </motion.button>
               </motion.form>
             )}
           </AnimatePresence>
-        </Card>
+        </motion.div>
       </div>
     </section>
   );
