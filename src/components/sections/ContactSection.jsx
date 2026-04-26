@@ -16,8 +16,8 @@ function FloatingField({ id, label, error, children, charCount, maxChars }) {
       <label
         htmlFor={id}
         className="pointer-events-none absolute left-4 top-3.5 text-sm text-white/35 transition-all duration-200
-                   peer-focus:-translate-y-6 peer-focus:text-[11px] peer-focus:text-primary/80
-                   peer-[&:not(:placeholder-shown)]:-translate-y-6 peer-[&:not(:placeholder-shown)]:text-[11px] peer-[&:not(:placeholder-shown)]:text-white/50"
+                   peer-focus:-translate-y-[1.85rem] peer-focus:text-[11px] peer-focus:text-primary/80
+                   peer-[&:not(:placeholder-shown)]:-translate-y-[1.85rem] peer-[&:not(:placeholder-shown)]:text-[11px] peer-[&:not(:placeholder-shown)]:text-white/50"
       >
         {label}
       </label>

@@ -103,12 +103,12 @@ export default function HeroSection() {
           >
             <div className="w-56 h-56 lg:w-72 lg:h-72 rounded-full overflow-hidden shadow-2xl ring-4 ring-primary/30 ring-offset-2 ring-offset-navy-dark">
               <Image
-                src="/profile.png"
+                src="/profile.webp"
                 alt="Josué Matamoros"
                 width={384}
                 height={384}
                 priority
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-[center_45%]"
               />
             </div>
           </motion.div>
